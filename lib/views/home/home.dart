@@ -1,0 +1,408 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pet_project/constants/app_constants.dart';
+import 'package:pet_project/views/addPet/add_pet.dart';
+import 'package:pet_project/views/home/widgets/info_card.dart';
+
+class Home extends StatelessWidget {
+  const Home({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        automaticallyImplyLeading: false,
+        leadingWidth: 40.0,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 14.0),
+          child: SvgPicture.asset(
+            AppConstants.drawerIcon,
+            fit: BoxFit.contain,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 14.0),
+            child: SvgPicture.asset(AppConstants.notificationIcon),
+          ),
+        ],
+      ),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Hi Taban 🙌",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.black, fontSize: 32),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    "Good Morning!!",
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: Colors.grey[500],
+                          fontSize: 16.0,
+                        ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+              SvgPicture.asset(
+                AppConstants.appIcon,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    AppConstants.homeInfo,
+                  ),
+                  fit: BoxFit.cover),
+              // color: Colors.red,
+            ),
+            // height: 20,
+            padding:
+                const EdgeInsets.only(top: 14, left: 40, right: 40, bottom: 20),
+
+            width: double.infinity,
+            height: 200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Card(
+                                      elevation: 4.0,
+                                      shape: const CircleBorder(),
+                                      child: CircleAvatar(
+                                        radius: 28,
+                                        // backgroundColor: Colors.grey,
+                                        child: SvgPicture.asset(
+                                            AppConstants.exAvatar),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0.0,
+                                      right: 5.0,
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.circle),
+                                        padding: const EdgeInsets.all(1),
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Colors.green,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          padding: const EdgeInsets.all(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 12,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Your Name",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall
+                                          ?.copyWith(
+                                            color: Colors.grey[700],
+                                          ),
+                                    ),
+                                    Text(
+                                      "Taban",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(21),
+                                color: Colors.blue[600],
+                              ),
+                              margin: const EdgeInsets.only(right: 20.0),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 4,
+                                horizontal: 8,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Member",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // SizedBox(
+                //   height: 40,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 78,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Phone Number",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                    color: Colors.grey[700], fontSize: 9),
+                          ),
+                          Text(
+                            "+91455949493",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(fontSize: 9),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Email",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                    color: Colors.grey[700], fontSize: 9),
+                          ),
+                          Text(
+                            "siddxd@gmail.com",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(fontSize: 9),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 28,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      width: 36,
+                    ),
+                    Text(
+                      "Member Since Mar, 2024",
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontSize: 14.0,
+                          ),
+                    ),
+                    const Spacer(),
+                    SvgPicture.asset(
+                      AppConstants.editButton,
+                    ),
+                    const SizedBox(
+                      width: 26,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+          const InfoCard(
+            imagePath: AppConstants.connectedTags,
+            imageBackgroundColor: AppConstants.lightGreenColor,
+            title: "TOTAL DEVICES",
+            count: "11",
+            percentColor: AppConstants.deepGreenColor,
+            percentCount: "4%",
+            trailingText: "Connected Tags",
+            progressIndicatorValue: .5,
+            progressIndicatorBarColor: AppConstants.deepGreenColor,
+            progressIndicatorBackgroundColor: AppConstants.lightGreenColor,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const InfoCard(
+            imagePath: AppConstants.notificationBell,
+            imageBackgroundColor: AppConstants.lightBlueColor,
+            title: "NOTIFICATIONS",
+            count: "47",
+            percentColor: AppConstants.deepBlueColor,
+            percentCount: "43%",
+            trailingText: "Unread",
+            progressIndicatorValue: .8,
+            progressIndicatorBarColor: AppConstants.deepBlueColor,
+            progressIndicatorBackgroundColor: AppConstants.lightBlueColor,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            height: 100,
+            child: PageView.builder(
+              itemBuilder: (context, index) {
+                return Image.asset(
+                  AppConstants.sample1,
+                );
+              },
+              itemCount: 3,
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "My Pets",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontSize: 20.0),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppConstants.shortDividerColor,
+                    ),
+                    width: 70,
+                    height: 8.0,
+                  ),
+                ],
+              ),
+              SvgPicture.asset(
+                AppConstants.viewAll,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          Card(
+            elevation: 8.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: SizedBox(
+              height: 225,
+              width: double.infinity,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Column(
+                    children: [
+                      const Spacer(),
+                      Text(
+                        "You haven't connected any pets",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontSize: 16.0,
+                            ),
+                      ),
+                      Text(
+                        "Add your first pet.",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontSize: 16.0,
+                            ),
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const AddPetView(),
+                          ),
+                        ),
+                        child: SvgPicture.asset(
+                          AppConstants.addPet,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    bottom: 0.0,
+                    right: 16,
+                    child: Image.asset(
+                      AppConstants.dog,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+        ],
+      ),
+    );
+  }
+}
