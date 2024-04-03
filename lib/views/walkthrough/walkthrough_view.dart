@@ -116,11 +116,18 @@ class ImageContainer extends StatelessWidget {
           Positioned(
             top: 90,
             right: 30,
-            child: Text(
-              "Skip",
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: Colors.white,
-                  ),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const HomeView(),
+                ),
+              ),
+              child: Text(
+                "Skip",
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
             ),
           ),
         ],
