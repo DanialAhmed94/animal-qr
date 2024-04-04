@@ -18,13 +18,19 @@ class BottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
             onTap: onBackPress,
-            child: Image.asset(AppConstants.back),
+            child: SizedBox(
+              height: 60,
+              child: Image.asset(
+                AppConstants.back,
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           GestureDetector(
             onTap: () {
@@ -69,8 +75,12 @@ class BottomWidget extends StatelessWidget {
                 default:
               }
             },
-            child: SvgPicture.asset(
-              AppConstants.continueButton2,
+            child: SizedBox(
+              height: 60,
+              child: SvgPicture.asset(
+                AppConstants.continueButton2,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ],

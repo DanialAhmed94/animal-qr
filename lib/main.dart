@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: "Animal QR",
       theme: AppTheme.lightTheme,
       home: const SplashView(),
     );

@@ -90,4 +90,5 @@ class AppConstants {
 
 ////////SAMPLES/////////////////////////////////////////////////
   static const String sample1 = "assets/example/refer.png";
+  static const String qrDog = "assets/example/qr_dog.png";
 }

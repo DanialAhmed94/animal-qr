@@ -34,29 +34,31 @@ class _WalkthroughViewState extends State<WalkthroughView> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      controller: _pageController,
-      itemBuilder: (context, index) {
-        return ImageContainer(
-          image: _images[index],
-          onSlide: () async {
-            if (index == 2) {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const HomeView(),
-                ),
+    return Scaffold(
+      body: PageView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        itemBuilder: (context, index) {
+          return ImageContainer(
+            image: _images[index],
+            onSlide: () async {
+              if (index == 2) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const HomeView(),
+                  ),
+                );
+              }
+              _pageController.animateToPage(
+                index + 1,
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeIn,
               );
-            }
-            _pageController.animateToPage(
-              index + 1,
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeIn,
-            );
-          },
-        );
-      },
-      itemCount: _images.length,
+            },
+          );
+        },
+        itemCount: _images.length,
+      ),
     );
   }
 }
@@ -72,66 +74,63 @@ class ImageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(image),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    children: [
-                      SlideAction(
-                        onSubmit: onSlide,
-                        elevation: 0.0,
-                        text: "Next",
-                        // alignment: Alignment.bottomLeft,
-                        submittedIcon: null,
-                        sliderButtonIcon: SvgPicture.asset(
-                          AppConstants.sliderIcon,
-                          fit: BoxFit.fill,
-                          height: 30,
-                        ),
-                        outerColor: AppConstants.primaryColor,
-                        textColor: Colors.black,
-                        innerColor: Colors.black,
-                        sliderRotate: false,
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
           ),
-          Positioned(
-            top: 90,
-            right: 30,
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const HomeView(),
-                ),
-              ),
-              child: Text(
-                "Skip",
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Column(
+                  children: [
+                    SlideAction(
+                      onSubmit: onSlide,
+                      elevation: 0.0,
+                      text: "Next",
+                      // alignment: Alignment.bottomLeft,
+                      submittedIcon: null,
+                      sliderButtonIcon: SvgPicture.asset(
+                        AppConstants.sliderIcon,
+                        fit: BoxFit.fill,
+                        height: 30,
+                      ),
+                      outerColor: AppConstants.primaryColor,
+                      textColor: Colors.black,
+                      innerColor: Colors.black,
+                      sliderRotate: false,
                     ),
-              ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+        Positioned(
+          top: 90,
+          right: 30,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const HomeView(),
+              ),
+            ),
+            child: Text(
+              "Skip",
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

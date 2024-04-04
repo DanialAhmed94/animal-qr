@@ -15,7 +15,7 @@ class _SplashViewState extends State<SplashView> {
   late final Timer _timer;
   @override
   void initState() {
-    _timer = Timer(const Duration(seconds: 1), () {
+    _timer = Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const WalkthroughView(),
@@ -40,6 +40,7 @@ class _SplashViewState extends State<SplashView> {
           image: AssetImage(
             "assets/splash.png",
           ),
+          fit: BoxFit.cover,
         ),
       ),
     );
