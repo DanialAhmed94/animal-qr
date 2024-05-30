@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
+import 'package:pet_project/views/auth/login.dart';
 import 'package:pet_project/views/home/home_view.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
@@ -66,6 +67,7 @@ class _WalkthroughViewState extends State<WalkthroughView> {
 class ImageContainer extends StatelessWidget {
   final String image;
   final Future<dynamic> Function() onSlide;
+
   const ImageContainer({
     super.key,
     required this.image,
@@ -119,7 +121,7 @@ class ImageContainer extends StatelessWidget {
           child: GestureDetector(
             onTap: () => Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const HomeView(),
+                builder: (context) =>  Login(),
               ),
             ),
             child: Text(

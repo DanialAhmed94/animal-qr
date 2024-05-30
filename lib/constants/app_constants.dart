@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppConstants {
   const AppConstants._();
+  static const String baseUrl = "http://animal.animalqr.com/public/api/";
   static const primaryColor = Color(0xFFFACB01);
   static const appBarLightYellow = Color(0xFFFFE999);
   static const shortDividerColor = Color(0xFF364D6F);
