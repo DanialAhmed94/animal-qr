@@ -110,10 +110,15 @@ class _AddPetInitialState extends State<AddPetInitial> {
   final Duration _duration = const Duration(milliseconds: 250);
   final Curve curve = Curves.easeIn;
   int? _authentiatedUserId;
+  String? _bearerToken;
 
-  Future<int?> retrieveData() async {
+  Future<int?> retrieveUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt('authenticatedUserId');
+  }
+  Future<String?> retrieveToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('auth_token');
   }
 
   @override
@@ -121,7 +126,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
     super.initState();
     _pageController = PageController(initialPage: 0);
     _pages = [];
-    retrieveData().then((value) {
+    retrieveUserId().then((value) {
       setState(() {
         _authentiatedUserId = value;
         _petData.hiddenId = widget.hiddenId;
@@ -136,6 +141,9 @@ class _AddPetInitialState extends State<AddPetInitial> {
         ];
       });
     });
+    retrieveToken().then((value){
+      _bearerToken = value.toString();
+    });
   }
 
   @override
@@ -146,7 +154,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
 
   @override
   Widget build(BuildContext context) {
-    if (_authentiatedUserId == null) {
+    if (_authentiatedUserId == null && _bearerToken == null) {
       return Center(child: CircularProgressIndicator());
     }
 
@@ -263,6 +271,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
               )
             else
               BottomWidget(
+                bearerToken: _bearerToken,
                 currentIndex: currentIndex,
                 pageController: _pageController,
                 petData: _petData,

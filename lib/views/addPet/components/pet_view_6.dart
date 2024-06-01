@@ -17,7 +17,7 @@ class _PetView6State extends State<PetView6> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.petData.notify = true;
+    widget.petData.notify = 1;
   }
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,13 @@ class _PetView6State extends State<PetView6> {
                     onChanged: (value) {
                       setState(() {
                         notify = value;
-                        widget.petData.notify = value;
+                        if(value){
+                          widget.petData.notify = 1;
+                        }
+                        else{
+                          widget.petData.notify = 0;
+
+                        }
                       });
                     },
                   ),

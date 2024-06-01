@@ -8,7 +8,7 @@ import 'package:pet_project/constants/app_constants.dart';
 import 'package:http/http.dart' as http;
 import '../modal/pet_modal.dart';
 
-Future<void> postPet(Pet petData, BuildContext context) async {
+Future<void> postPet(Pet petData, BuildContext context, String? bearerToken) async {
   try {
     final String url = AppConstants.baseUrlPet;
     Map<String, dynamic> requestBody = {
@@ -33,9 +33,11 @@ Future<void> postPet(Pet petData, BuildContext context) async {
 
     final response = await http.post(Uri.parse('$url/addPet'),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $bearerToken',
         },
+
         body: jsonEncode(requestBody));
+    print("token: $bearerToken");
 
     if (response.statusCode == 200) {
       showDialog(

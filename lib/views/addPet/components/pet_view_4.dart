@@ -22,8 +22,8 @@ class _PetView4State extends State<PetView4> {
     _behaviourController = TextEditingController();
     _dietController= TextEditingController();
     _anxietyController = TextEditingController();
-    widget.petData.vaccination = true;
-    widget.petData.spayed = true;
+    widget.petData.vaccination = 1;
+    widget.petData.spayed = 1;
   }
   @override
   void dispose() {
@@ -117,7 +117,7 @@ class _PetView4State extends State<PetView4> {
                                   children: [
                                     GestureDetector(
                                       onTap: (){
-                                        widget.petData.vaccination = true;
+                                        widget.petData.vaccination = 1;
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -137,7 +137,7 @@ class _PetView4State extends State<PetView4> {
                                     const Spacer(),
                                     GestureDetector(
                                       onTap: (){
-                                        widget.petData.vaccination = false;
+                                        widget.petData.vaccination = 0;
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -198,7 +198,7 @@ class _PetView4State extends State<PetView4> {
                                   children: [
                                     GestureDetector(
                                       onTap: (){
-                                        widget.petData.spayed = true;
+                                        widget.petData.spayed = 1;
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -218,7 +218,7 @@ class _PetView4State extends State<PetView4> {
                                     const Spacer(),
                                     GestureDetector(
                                       onTap: (){
-                                        widget.petData.spayed = false;
+                                        widget.petData.spayed = 0;
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(

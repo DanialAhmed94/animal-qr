@@ -9,13 +9,13 @@ class Pet {
   String? petImage;
   String? instagramUsername;
   String? tiktokUsername;
-  bool? vaccination = true;
-  bool? spayed = true;
+  int? vaccination = 1;
+  int? spayed = 1;
   String? behaviour;
   String? anxiety;
   String? diet;
   int? weight = 1;
-  bool? notify = true;
+  int? notify = 1;
 
   Pet({
     this.userId,

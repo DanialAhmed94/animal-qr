@@ -11,6 +11,7 @@ import '../../home/home.dart';
 class BottomWidget extends StatefulWidget {
   BottomWidget(
       {super.key,
+        this.bearerToken,
       required this.currentIndex,
       required PageController pageController,
       required this.onBackPress,
@@ -18,6 +19,7 @@ class BottomWidget extends StatefulWidget {
       : _pageController = pageController;
 
   Pet petData;
+  String? bearerToken;
   final int currentIndex;
   final PageController _pageController;
   final VoidCallback onBackPress;
@@ -109,7 +111,8 @@ class _BottomWidgetState extends State<BottomWidget> {
                   print('Weight: ${widget.petData.weight}');
                   print('Notify: ${widget.petData.notify}');
                   print('Base64: ${widget.petData.petImage}');
-                  postPet(widget.petData, context);
+
+                  postPet(widget.petData, context, widget.bearerToken);
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
                   break;
                 default:
