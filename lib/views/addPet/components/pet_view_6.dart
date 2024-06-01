@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
+import 'package:pet_project/modal/pet_modal.dart';
 
 class PetView6 extends StatefulWidget {
-  const PetView6({super.key});
+  Pet petData;
+  PetView6({required this.petData});
 
   @override
   State<PetView6> createState() => _PetView6State();
@@ -11,8 +13,15 @@ class PetView6 extends StatefulWidget {
 
 class _PetView6State extends State<PetView6> {
   bool notify = true;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.petData.notify = true;
+  }
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         const SizedBox(
@@ -55,6 +64,7 @@ class _PetView6State extends State<PetView6> {
                     onChanged: (value) {
                       setState(() {
                         notify = value;
+                        widget.petData.notify = value;
                       });
                     },
                   ),

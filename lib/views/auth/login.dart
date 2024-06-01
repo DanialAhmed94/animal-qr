@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:pet_project/views/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../home/home_view.dart';
+
 class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
@@ -32,55 +34,46 @@ class _LoginState extends State<Login> {
     _passwordController.dispose();
   }
   Future<void> _Login(BuildContext context) async {
+    String password = _passwordController.text;
+    String email = _emailController.text;
     if (_formKey.currentState!.validate()) {
-      final response = await http.post(
-        Uri.parse('http://animal.animalqr.com/public/api/authin'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'email': _emailController.text,
-          'password': _passwordController.text,
-        }),
-      );
+      try {
+        final String url = AppConstants.baseUrl;
+        final response = await http.post(
+          Uri.parse('$url/authin?email=$email&password=$password'));
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> responseBody = jsonDecode(response.body);
-        final String token = responseBody['data']['response']['token'];
-        final String authenticatedUserId = responseBody['data']['user']['id'];
-        final String owned_qrs =  responseBody['data']['owned_qrs'];
-        // Save the token using SharedPreferences
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('auth_token', token.toString());
-        await prefs.setString('authenticatedUserId', authenticatedUserId.toString());
-        await prefs.setString('owned_qrs', owned_qrs.toString());
-        // If the server returns a 200 OK response, navigate to the login page.
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
-      } else {
-        // If the server did not return a 200 OK response, display an error.
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> responseBody = jsonDecode(response.body);
+                final String token = responseBody['data']['response']['token'];
+                final int authenticatedUserId = responseBody['data']['user']['id'];
+                final int owned_qrs =  responseBody['data']['owned_qrs'];
+                // Save the token using SharedPreferences
+                final SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setString('auth_token', token.toString());
+                await prefs.setInt('authenticatedUserId', authenticatedUserId);
+                await prefs.setInt('owned_qrs', owned_qrs);
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeView()),
+          );
+        } else {
+          print('Failed to login: ${response.statusCode}');
+          print('Response body: ${response.body}');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to Login. Please try again.')),
+          );
+        }
+      } catch (error) {
+        print('Error during login: $error');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to Login. Please try again.')),
+          SnackBar(content: Text('Error occured. $error')),
         );
       }
     }
   }
-  // Future<void> _Login(BuildContext context) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     final response = await http.post(
-  //       Uri.parse('${AppConstants.baseUrl}/authin'),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //       body: jsonEncode(<String, String>{
-  //         'email': _emailController.text,
-  //         'password': _passwordController.text,
-  //       }),
-  //     );
-  //   }
-  // }
+
+
 
   @override
   Widget build(BuildContext context) {

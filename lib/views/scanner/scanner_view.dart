@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
+import 'package:pet_project/views/scanner/qr_camScanner.dart';
 import 'package:pet_project/views/scanner/scanner_detail_view.dart';
 
 class ScannerView extends StatelessWidget {
@@ -110,10 +111,11 @@ class ScannerView extends StatelessWidget {
       floatingActionButton: GestureDetector(
         onTap: () {
           Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const ScannerDetailView(),
-            ),
-          );
+          MaterialPageRoute(builder: (context) => QRScannerView()));
+          //   MaterialPageRoute(
+          //     builder: (context) => const ScannerDetailView(),
+          //   ),
+          // );
         },
         child: Card(
           shape: const CircleBorder(),

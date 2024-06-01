@@ -3,32 +3,32 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/modal/pet_modal.dart';
 
-class SelectBreedView extends StatelessWidget {
-   Pet petData;
-   SelectBreedView({required this.petData});
-   List<String> catBreeds = [
-    'Ragdoll',
-    'Maine Coon',
-    'Devon Rex',
-    'Exotic Shorthair',
-    'Persian',
-    'British Shorthair',
-    'Abyssinian',
-    'Scottish Fold',
-    'Sphynx',
-    'Siberian',
-    'American Shorthair',
-    'Bengal',
-    'Russian Blue',
-    'Norwegian Forest Cat',
-    'Oriental Shorthair',
-    'Siamese',
-    'Cornish Rex',
-    'Selkirk Rex',
-    'Burmese',
-    'Tonkinese',
-  ];
+class SelectDogBreedView extends StatelessWidget {
+  Pet petData;
+  SelectDogBreedView({required this.petData});
 
+  final List<String> dogBreeds = [
+    'Labrador Retriever',
+    'German Shepherd',
+    'Golden Retriever',
+    'Bulldog',
+    'Beagle',
+    'Poodle',
+    'Rottweiler',
+    'Yorkshire Terrier',
+    'Boxer',
+    'Dachshund',
+    'Siberian Husky',
+    'Great Dane',
+    'Doberman Pinscher',
+    'Australian Shepherd',
+    'Shih Tzu',
+    'Boston Terrier',
+    'Pomeranian',
+    'Havanese',
+    'Shetland Sheepdog',
+    'Cavalier King Charles Spaniel',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class SelectBreedView extends StatelessWidget {
           //     suggestionsBuilder: (context, controller) {
           //       return List.generate(
           //         8,
-          //         (index) => const ListTile(
+          //             (index) => const ListTile(
           //           title: Text("Akita"),
           //         ),
           //       );
@@ -91,19 +91,19 @@ class SelectBreedView extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      petData.petBreed= catBreeds[index].toString();
+                      petData.petBreed= dogBreeds[index].toString();
                       Navigator.pop(context);
                     },
                     child: ListTile(
                       visualDensity: VisualDensity.compact,
-                      title: Text(catBreeds[index]),
+                      title: Text(dogBreeds[index]),
                     ),
                   ),
                   Divider(),
                 ],
               );
             },
-            itemCount:  catBreeds.length,
+            itemCount:  dogBreeds.length,
           ),
         ],
       ),

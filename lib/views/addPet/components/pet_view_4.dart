@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
 
 import 'package:pet_project/constants/app_constants.dart';
+import 'package:pet_project/modal/pet_modal.dart';
 
-class PetView4 extends StatelessWidget {
-  const PetView4({super.key});
+class PetView4 extends StatefulWidget {
+  Pet petData;
+  PetView4({required this.petData});
 
   @override
+  State<PetView4> createState() => _PetView4State();
+}
+
+class _PetView4State extends State<PetView4> {
+ late TextEditingController _behaviourController;
+ late TextEditingController _anxietyController;
+ late TextEditingController _dietController;
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _behaviourController = TextEditingController();
+    _dietController= TextEditingController();
+    _anxietyController = TextEditingController();
+    widget.petData.vaccination = true;
+    widget.petData.spayed = true;
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _dietController.dispose();
+    _anxietyController.dispose();
+    _behaviourController.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -86,33 +115,43 @@ class PetView4 extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 7.0, horizontal: 10),
-                                      child: Text(
-                                        "Yes",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
+                                    GestureDetector(
+                                      onTap: (){
+                                        widget.petData.vaccination = true;
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: Colors.white,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 7.0, horizontal: 10),
+                                        child: Text(
+                                          "Yes",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
                                       ),
                                     ),
                                     const Spacer(),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 7.0, horizontal: 12),
-                                      child: Text(
-                                        "No",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
+                                    GestureDetector(
+                                      onTap: (){
+                                        widget.petData.vaccination = false;
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: Colors.white,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 7.0, horizontal: 12),
+                                        child: Text(
+                                          "No",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -129,7 +168,7 @@ class PetView4 extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 18,
+                  width: 12,
                 ),
                 Expanded(
                   child: Card(
@@ -157,33 +196,43 @@ class PetView4 extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 7.0, horizontal: 10),
-                                      child: Text(
-                                        "Yes",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
+                                    GestureDetector(
+                                      onTap: (){
+                                        widget.petData.spayed = true;
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: Colors.white,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 7.0, horizontal: 10),
+                                        child: Text(
+                                          "Yes",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
                                       ),
                                     ),
                                     const Spacer(),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 7.0, horizontal: 12),
-                                      child: Text(
-                                        "No",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
+                                    GestureDetector(
+                                      onTap: (){
+                                        widget.petData.spayed = false;
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: Colors.white,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 7.0, horizontal: 12),
+                                        child: Text(
+                                          "No",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -221,10 +270,14 @@ class PetView4 extends StatelessWidget {
                   surfaceTintColor: Colors.white,
                   elevation: 5,
                   color: Colors.white,
-                  child: const Padding(
+                  child:  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
-                      readOnly: true,
+                      controller: _behaviourController,
+                      onChanged: (value){
+                        widget.petData.behaviour = value;
+                      },
+                      //readOnly: true,
                       decoration: InputDecoration(
                         label: Text("Behavior"),
                         border: InputBorder.none,
@@ -240,16 +293,20 @@ class PetView4 extends StatelessWidget {
                   surfaceTintColor: Colors.white,
                   elevation: 5,
                   color: Colors.white,
-                  child: const Padding(
+                  child:  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
-                      readOnly: true,
+                      controller: _anxietyController,
+                      onChanged: (value){
+                        widget.petData.anxiety = value;
+                     },
+                     // readOnly: true,
                       decoration: InputDecoration(
                         label: Text("Anxiety"),
                         border: InputBorder.none,
-                        suffixIcon: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                        ),
+                        // suffixIcon: Icon(
+                        //   Icons.arrow_forward_ios_rounded,
+                        // ),
                       ),
                     ),
                   ),
@@ -262,10 +319,14 @@ class PetView4 extends StatelessWidget {
                   surfaceTintColor: Colors.white,
                   elevation: 5,
                   color: Colors.white,
-                  child: const Padding(
+                  child:  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
-                      readOnly: true,
+                      controller: _dietController,
+                      onChanged: (value){
+                        widget.petData.diet = value;
+                      },
+                      //readOnly: true,
                       decoration: InputDecoration(
                         label: Text("Diet"),
                         border: InputBorder.none,

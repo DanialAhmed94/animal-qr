@@ -5,6 +5,8 @@ import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/views/addPet/add_pet.dart';
 import 'package:pet_project/views/home/widgets/info_card.dart';
 
+import '../scanner/scanner_view.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -374,10 +376,13 @@ class Home extends StatelessWidget {
                       const Spacer(),
                       GestureDetector(
                         onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const AddPetView(),
-                          ),
-                        ),
+                            MaterialPageRoute(
+                                builder: (context) => ScannerView())),
+                        // onTap: () => Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const AddPetView(),
+                        //   ),
+                        // ),
                         child: SvgPicture.asset(
                           AppConstants.addPet,
                         ),

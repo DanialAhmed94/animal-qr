@@ -3,20 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/views/addPet/select_breed.dart';
+import 'package:pet_project/views/addPet/select_dog_breed.dart';
+
+import '../../../modal/pet_modal.dart';
 
 enum SelectedPet { dog, cat }
 
 class AddPetView1 extends StatefulWidget {
-  const AddPetView1({super.key});
 
+  Pet petData;
+  AddPetView1({required this.petData});
   @override
   State<AddPetView1> createState() => _AddPetView1State();
 }
 
 class _AddPetView1State extends State<AddPetView1> {
+
   SelectedPet _selectedPet = SelectedPet.dog;
+
   @override
   Widget build(BuildContext context) {
+    widget.petData.petType = "Dog";
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -45,6 +52,7 @@ class _AddPetView1State extends State<AddPetView1> {
                 child: GestureDetector(
                   onTap: () => setState(() {
                     _selectedPet = SelectedPet.dog;
+                    widget.petData.petType = "Dog";
                   }),
                   child: Container(
                     decoration: BoxDecoration(
@@ -67,6 +75,7 @@ class _AddPetView1State extends State<AddPetView1> {
                 child: GestureDetector(
                   onTap: () => setState(() {
                     _selectedPet = SelectedPet.cat;
+                    widget.petData.petType = "Cat";
                   }),
                   child: Container(
                     decoration: BoxDecoration(
@@ -105,7 +114,7 @@ class _AddPetView1State extends State<AddPetView1> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const SelectBreedView(),
+                        builder: (context) =>  SelectDogBreedView(petData: widget.petData,),
                       ),
                     );
                   },
@@ -118,7 +127,7 @@ class _AddPetView1State extends State<AddPetView1> {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Center(
                           child: Text(
-                            "Afghan",
+                            "Dog Breeds",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -144,7 +153,7 @@ class _AddPetView1State extends State<AddPetView1> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const SelectBreedView(),
+                        builder: (context) =>  SelectBreedView(petData: widget.petData,),
                       ),
                     );
                   },
@@ -157,7 +166,7 @@ class _AddPetView1State extends State<AddPetView1> {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Center(
                           child: Text(
-                            "Akita",
+                            "Cat Breeds",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge

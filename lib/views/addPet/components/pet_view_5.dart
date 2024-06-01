@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pet_project/constants/app_constants.dart';
+import 'package:pet_project/modal/pet_modal.dart';
 
 enum Weight { lbs, kg }
 
 class PetView5 extends StatefulWidget {
-  const PetView5({super.key});
+  Pet petData;
+  PetView5({required this.petData});
 
   @override
   State<PetView5> createState() => _PetView5State();
@@ -16,6 +18,7 @@ class _PetView5State extends State<PetView5> {
 
   @override
   Widget build(BuildContext context) {
+    widget.petData.weight = 1;
     return Column(
       children: [
         const SizedBox(
@@ -58,6 +61,7 @@ class _PetView5State extends State<PetView5> {
               onPressed: () {
                 setState(() {
                   _counter--;
+                  widget.petData.weight = _counter;
                 });
               },
               child: const Icon(Icons.remove),
@@ -78,6 +82,7 @@ class _PetView5State extends State<PetView5> {
               onPressed: () {
                 setState(() {
                   _counter++;
+                  widget.petData.weight = _counter;
                 });
               },
               child: const Icon(Icons.add),

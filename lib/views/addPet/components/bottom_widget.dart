@@ -1,19 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pet_project/api/postPet.dart';
 import 'package:pet_project/constants/app_constants.dart';
+import 'package:pet_project/modal/pet_modal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class BottomWidget extends StatelessWidget {
-  const BottomWidget({
-    super.key,
-    required this.currentIndex,
-    required PageController pageController,
-    required this.onBackPress,
-  }) : _pageController = pageController;
+import '../../home/home.dart';
 
+class BottomWidget extends StatefulWidget {
+  BottomWidget(
+      {super.key,
+      required this.currentIndex,
+      required PageController pageController,
+      required this.onBackPress,
+      required this.petData})
+      : _pageController = pageController;
+
+  Pet petData;
   final int currentIndex;
   final PageController _pageController;
   final VoidCallback onBackPress;
+
+  @override
+  State<BottomWidget> createState() => _BottomWidgetState();
+}
+
+class _BottomWidgetState extends State<BottomWidget> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   ;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +43,7 @@ class BottomWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: onBackPress,
+            onTap: widget.onBackPress,
             child: SizedBox(
               height: 60,
               child: Image.asset(
@@ -34,43 +54,63 @@ class BottomWidget extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              switch (currentIndex) {
+              switch (widget.currentIndex) {
                 case 0:
                   break;
                 case 1:
-                  _pageController.animateToPage(
+                  widget._pageController.animateToPage(
                     2,
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeIn,
                   );
                   break;
                 case 2:
-                  _pageController.animateToPage(
+                  widget._pageController.animateToPage(
                     3,
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeIn,
                   );
                   break;
                 case 3:
-                  _pageController.animateToPage(
+                  widget._pageController.animateToPage(
                     4,
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeIn,
                   );
                   break;
                 case 4:
-                  _pageController.animateToPage(
+                  widget._pageController.animateToPage(
                     5,
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeIn,
                   );
                   break;
                 case 5:
-                  _pageController.animateToPage(
+                  widget._pageController.animateToPage(
                     6,
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeIn,
                   );
+
+                  print('Qr_Id: ${widget.petData.hiddenId}');
+                  print('userId: ${widget.petData.userId}');
+                  print('Name: ${widget.petData.petName}');
+                  print('Type: ${widget.petData.petType}');
+                  print('Breed: ${widget.petData.petBreed}');
+                  print('Gender: ${widget.petData.petGender}');
+                  print('Date of Birth: ${widget.petData.petDob}');
+                  print('Insta: ${widget.petData.instagramUsername}');
+                  print('Tiktok: ${widget.petData.tiktokUsername}');
+                  print('Vaccination: ${widget.petData.vaccination}');
+                  print('Spayed: ${widget.petData.spayed}');
+                  print('Behaviour: ${widget.petData.behaviour}');
+                  print('Anxiety: ${widget.petData.anxiety}');
+                  print('Diet: ${widget.petData.diet}');
+                  print('Weight: ${widget.petData.weight}');
+                  print('Notify: ${widget.petData.notify}');
+                  print('Base64: ${widget.petData.petImage}');
+                  postPet(widget.petData, context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
                   break;
                 default:
               }
