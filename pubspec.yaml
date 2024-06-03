@@ -46,6 +46,9 @@ dependencies:
   tuple: ^2.0.2
   url_launcher: ^6.2.6
   get: ^4.6.6
+  firebase_core: ^2.32.0
+  firebase_messaging: ^14.9.4
+  flutter_local_notifications: ^17.1.2
 
 
 

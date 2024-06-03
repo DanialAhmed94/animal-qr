@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "391801272133",
+    "project_id": "animalqr-58b0f",
+    "storage_bucket": "animalqr-58b0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391801272133:android:0ab3d6b09b5df6fc7b702c",
+        "android_client_info": {
+          "package_name": "com.pet.animalqr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYsjIiO6xTbx7cTCfFPw7F2FtHyl9AvOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
