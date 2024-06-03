@@ -15,10 +15,15 @@ class PetView5 extends StatefulWidget {
 class _PetView5State extends State<PetView5> {
   Weight weight = Weight.lbs;
   int _counter = 1;
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.petData.weight = 1;
+  }
   @override
   Widget build(BuildContext context) {
-    widget.petData.weight = 1;
+
     return Column(
       children: [
         const SizedBox(

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class AppConstants {
   const AppConstants._();
   static const String baseUrl = "http://animal.animalqr.com/public/api";
-  static const String baseUrlPet = "http://animal.animalqr.com/public";
+  static const String maleIcon = "assets/home/male_icon.png";
+  static const String feMaleIcon = "assets/home/female_icon.png";
+  static const String baseUrlPet = "http://animal.animalqr.com/public/asset/animal_images";
   static const primaryColor = Color(0xFFFACB01);
   static const appBarLightYellow = Color(0xFFFFE999);
   static const shortDividerColor = Color(0xFF364D6F);
@@ -28,6 +30,7 @@ class AppConstants {
   static const String scanBig = "assets/svg/scan_big.svg";
   static const String notificationIcon = "assets/svg/notification_icon.svg";
   static const String exAvatar = "assets/example/avatar.svg";
+  static const String exAvatarnew = "assets/example/avatar.jpg";
   static const String locationIcon = "assets/svg/location_icon.svg";
   static const String backIcon = "assets/svg/back_icon.svg";
   static const String memberIcon = "assets/svg/member.svg";
@@ -51,11 +54,18 @@ class AppConstants {
   static const String profileUnselected = "assets/svg/profile_unselected.svg";
   static const String notifyMe = "assets/svg/notify_me.svg";
   static const String myProfile = "assets/svg/my_profile.svg";
+  static const String email = "assets/svg/email.png";
+  static const String member = "assets/svg/member.png";
+  static const String facebook = "assets/svg/facebook.png";
+  static const String instagram = "assets/svg/instagram.png";
+  static const String web = "assets/svg/web.png";
+  static const String devices = "assets/svg/devices.png";
   static const String myAddress = "assets/svg/my_address.svg";
   static const String myOrder = "assets/svg/my_order.svg";
   static const String language = "assets/svg/language.svg";
   static const String privacyPolicy = "assets/svg/privacy_policy.svg";
   static const String contactUS = "assets/svg/contact_us.svg";
+  static const String logout = "assets/svg/check-out.png";
   static const String feedBack = "assets/svg/feedback.svg";
   static const String aboutUs = "assets/svg/about_us.svg";
   static const String rateUs = "assets/svg/rate_us.svg";

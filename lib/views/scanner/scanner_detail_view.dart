@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:pet_project/constants/app_constants.dart';
 
+import '../../modal/recievPet_model.dart';
+
 class ScannerDetailView extends StatelessWidget {
-  const ScannerDetailView({super.key});
+  final RPet rPet;
+
+  ScannerDetailView({required this.rPet});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +38,12 @@ class ScannerDetailView extends StatelessWidget {
                 color: Colors.white,
               ),
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(vertical: 20),
+                padding: EdgeInsets.symmetric(vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
-                      height: 54,
+                      height: 24,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 62.0),
@@ -54,7 +60,7 @@ class ScannerDetailView extends StatelessWidget {
                                 ),
                           ),
                           Text(
-                            "Ryan, Claire",
+                            "${_checkForNull(rPet.parent1)},${_checkForNull(rPet.parent2)}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
@@ -75,7 +81,7 @@ class ScannerDetailView extends StatelessWidget {
                             width: 12,
                           ),
                           Text(
-                            "Ajf lsdkfjdf slofijdsfnj lojfdlf oweifjef owefih",
+                            "${_checkForNull(rPet.address)}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
@@ -87,12 +93,12 @@ class ScannerDetailView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 45,
+                      height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 60.0),
                       child: Text(
-                        "About Odie",
+                        "About ${_checkForNull(rPet.name)}",
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   fontSize: 16,
@@ -106,7 +112,7 @@ class ScannerDetailView extends StatelessWidget {
                         right: 100,
                       ),
                       child: Text(
-                        "I like hang out and adventure if you find me, please bring me back to my parents! I'm super nice.",
+                        "${_checkForNull(rPet.description)}",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: const Color(0xFF707070),
                               fontSize: 13,
@@ -122,8 +128,8 @@ class ScannerDetailView extends StatelessWidget {
                         color: AppConstants.backContainerColor,
                       ),
                       padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 22),
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                          vertical: 10, horizontal: 2),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -146,7 +152,7 @@ class ScannerDetailView extends StatelessWidget {
                                           fontSize: 20.0),
                                 ),
                                 Text(
-                                  "Female",
+                                  "${_checkForNull(rPet.gender)}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium
@@ -166,7 +172,7 @@ class ScannerDetailView extends StatelessWidget {
                                           fontSize: 20.0),
                                 ),
                                 Text(
-                                  "5 Years",
+                                  "${_checkForNull(rPet.age)} Years",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium
@@ -186,7 +192,7 @@ class ScannerDetailView extends StatelessWidget {
                                           fontSize: 20.0),
                                 ),
                                 Text(
-                                  "Dog",
+                                  "${_checkForNull(rPet.petCategory)}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium
@@ -207,10 +213,10 @@ class ScannerDetailView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       padding: const EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 18,
+                        vertical: 9,
+                        horizontal: 10,
                       ),
-                      margin: const EdgeInsets.symmetric(horizontal: 40),
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         children: [
                           Row(
@@ -229,7 +235,7 @@ class ScannerDetailView extends StatelessWidget {
                                             fontSize: 16),
                                   ),
                                   Text(
-                                    "German",
+                                    "${_checkForNull(rPet.breed)}"?? " ",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -248,7 +254,7 @@ class ScannerDetailView extends StatelessWidget {
                                             fontSize: 16),
                                   ),
                                   Text(
-                                    "12/15/2018",
+                                    "${_checkForNull(rPet.dob)}"?? " ",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -272,7 +278,7 @@ class ScannerDetailView extends StatelessWidget {
                                             fontSize: 16),
                                   ),
                                   Text(
-                                    "9.5kg",
+                                    "${_checkForNull(rPet.weight)}kg",
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -290,8 +296,8 @@ class ScannerDetailView extends StatelessWidget {
                                             color: const Color(0xFF2A5F6B),
                                             fontSize: 16),
                                   ),
-                                  const Text(
-                                    "@Animal QR",
+                                   Text(
+                                    "${_checkForNull(rPet.instaId)}" ?? " ",
                                     style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600,
@@ -317,8 +323,8 @@ class ScannerDetailView extends StatelessWidget {
                                             color: const Color(0xFF2A5F6B),
                                             fontSize: 16),
                                   ),
-                                  const Text(
-                                    "@Animal QR",
+                                   Text(
+                                    "${_checkForNull(rPet.tiktokId)}"?? " ",
                                     style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600,
@@ -359,10 +365,30 @@ class ScannerDetailView extends StatelessWidget {
             top: 50,
             left: 0.0,
             right: 0.0,
-            child: Image.asset(AppConstants.qrDog),
+            child: rPet.image1==null || rPet.image2 ==null ? Image.asset(AppConstants.qrDog):
+              _buildBase64Image(rPet.image1)
           ),
         ],
       ),
     );
+  }
+  String _checkForNull(String? value) {
+   if(value == null){return "N/A";}
+   else
+     return value;
+  }
+
+  Widget _buildBase64Image(String? base64String) {
+    if (base64String == null) return SizedBox.shrink();
+
+    try {
+      final bytes = base64Decode(base64String);
+      return CircleAvatar(
+        radius: 60,
+        backgroundImage: MemoryImage(bytes),
+      );
+    } catch (e) {
+      return Text('Invalid image data');
+    }
   }
 }

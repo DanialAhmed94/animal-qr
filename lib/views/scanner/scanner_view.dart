@@ -44,17 +44,18 @@ class ScannerView extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "SCAN MA NOW,",
+                      "SCAN QR",
+                      // scan me now
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontSize: 20.0,
                           ),
                     ),
-                    Text(
-                      "I JUST WANT TO GO HOME",
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontSize: 20.0,
-                          ),
-                    ),
+                    // Text(
+                    //   "I JUST WANT TO GO HOME",
+                    //   style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    //         fontSize: 20.0,
+                    //       ),
+                    // ),
                     const SizedBox(
                       height: 50,
                     ),
@@ -98,11 +99,11 @@ class ScannerView extends StatelessWidget {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppConstants.sunIcon),
+              icon: SvgPicture.asset(AppConstants.sunIcon,color: AppConstants.primaryColor,),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppConstants.undoIcon),
+              icon: SvgPicture.asset(AppConstants.undoIcon,color: AppConstants.primaryColor,),
               label: "",
             ),
           ],

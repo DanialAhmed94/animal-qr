@@ -20,10 +20,15 @@ class AddPetView1 extends StatefulWidget {
 class _AddPetView1State extends State<AddPetView1> {
 
   SelectedPet _selectedPet = SelectedPet.dog;
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.petData.petType = "Dog";
+  }
   @override
   Widget build(BuildContext context) {
-    widget.petData.petType = "Dog";
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -126,14 +131,18 @@ class _AddPetView1State extends State<AddPetView1> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Center(
-                          child: Text(
-                            "Dog Breeds",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  color: Colors.white,
-                                ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Dog Breeds",
+                              style: TextStyle(color: Colors.white,fontSize: 22),
+                              // style: Theme.of(context)
+                              //     .textTheme
+                              //     .titleLarge
+                              //     ?.copyWith(
+                              //       color: Colors.white,
+                              //     ),
+                            ),
                           ),
                         ),
                       ),
@@ -165,14 +174,18 @@ class _AddPetView1State extends State<AddPetView1> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Center(
-                          child: Text(
-                            "Cat Breeds",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  color: Colors.white,
-                                ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Cat Breeds",
+                              style: TextStyle(color: Colors.white,fontSize: 22),
+                              // style: Theme.of(context)
+                              //     .textTheme
+                              //     .titleLarge
+                              //     ?.copyWith(
+                              //       color: Colors.white,
+                              //     ),
+                            ),
                           ),
                         ),
                       ),

@@ -13,84 +13,144 @@ import 'package:pet_project/views/addPet/components/pet_view_5.dart';
 import 'package:pet_project/views/addPet/components/pet_view_6.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../scanner/scanner_view.dart';
+
 class AddPetView extends StatefulWidget {
   const AddPetView({super.key});
 
   @override
   State<AddPetView> createState() => _AddPetViewState();
 }
-
+Future<int?> getOwnedQrs() async
+{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('owned_qrs');
+}
 class _AddPetViewState extends State<AddPetView> {
+  late Future<int?> _ownedQrs;
+  @override
+  void initState() {
+    super.initState();
+    _ownedQrs = getOwnedQrs();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add Pet"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-              elevation: 8.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(28),
-              ),
-              child: SizedBox(
-                height: 225,
-                width: double.infinity,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Column(
+    return FutureBuilder<int?>(future:_ownedQrs, builder: (context,snapshort){
+      if(snapshort.connectionState == ConnectionState.waiting){
+        return Center(child: CircularProgressIndicator(),);
+      }
+      else if(snapshort.hasError){
+        return Center(child: Text("Error: ${snapshort.error}"),);
+      }
+      else{
+        int? ownedQrs = snapshort.data;
+       return Scaffold(
+          appBar: AppBar(
+            title: const Text("Add Pet"),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Card(
+                  elevation: 8.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  child: SizedBox(
+                    height: 225,
+                    width: double.infinity,
+                    child: Stack(
+                      fit: StackFit.expand,
                       children: [
-                        const Spacer(),
-                        Text(
-                          "You haven't connected any pets",
-                          style:
-                          Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontSize: 16.0,
-                          ),
-                        ),
-                        Text(
-                          "Add your first pet.",
-                          style:
-                          Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontSize: 16.0,
-                          ),
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => AddPetInitial(),
+                        Column(
+                          children: [
+                            const Spacer(),
+                            ownedQrs!=null && ownedQrs>0 ?
+                            Column(
+                              children: [
+                                Text(
+                                  "You have $ownedQrs registered pets.",
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                                Text(
+                                  "Want to add more pets?",
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              ],
+                            ):
+                            Column(children: [
+                              Text(
+                                "You haven't connected any pets",
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              Text(
+                                "Add your first pet.",
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                  fontSize: 16.0,
+                                ),
+                              ),],),
+
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () =>
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => ScannerView())),
+                              // onTap: () => Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const AddPetView(),
+                              //   ),
+                              // ),
+                              child: SvgPicture.asset(
+                                AppConstants.addPet,
+                              ),
                             ),
-                          ),
-                          child: SvgPicture.asset(
-                            AppConstants.addPet,
-                          ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          height: 20,
+                        Positioned(
+                          bottom: 0.0,
+                          right: 16,
+                          child: Image.asset(
+                            AppConstants.dog,
+                          ),
                         ),
                       ],
                     ),
-                    Positioned(
-                      bottom: 0.0,
-                      right: 16,
-                      child: Image.asset(
-                        AppConstants.dog,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        );
+      }
+    });
   }
 }
 
@@ -232,7 +292,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
                         padding: const EdgeInsets.symmetric(horizontal: 60.0),
                         child: LinearProgressIndicator(
                           value: .5,
-                          minHeight: 12,
+                          minHeight: 9,
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
@@ -265,8 +325,10 @@ class _AddPetInitialState extends State<AddPetInitial> {
                     curve: curve,
                   );
                 },
-                child: SvgPicture.asset(
-                  AppConstants.continueButton1,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8,right: 8),                  child: SvgPicture.asset(
+                    AppConstants.continueButton1,
+                  ),
                 ),
               )
             else

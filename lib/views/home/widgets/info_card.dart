@@ -79,20 +79,20 @@ class InfoCard extends StatelessWidget {
                                       fontSize: 24,
                                     ),
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: percentColor,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 14),
-                                child: const Text(
-                                  "4%",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                              // Container(
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(20),
+                              //     color: percentColor,
+                              //   ),
+                              //   padding: const EdgeInsets.symmetric(
+                              //       vertical: 4, horizontal: 14),
+                              //   child: const Text(
+                              //     "4%",
+                              //     style: TextStyle(
+                              //       color: Colors.white,
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                           const SizedBox(
@@ -101,7 +101,7 @@ class InfoCard extends StatelessWidget {
                           SizedBox(
                             width: double.infinity,
                             child: LinearProgressIndicator(
-                              minHeight: 8,
+                              minHeight: 7,
                               value: progressIndicatorValue,
                               color: progressIndicatorBarColor,
                               backgroundColor: progressIndicatorBackgroundColor,
@@ -114,15 +114,15 @@ class InfoCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Text(
-                  trailingText,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: Colors.grey[700],
-                      ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 20.0),
+              //   child: Text(
+              //     trailingText,
+              //     style: Theme.of(context).textTheme.titleSmall?.copyWith(
+              //           color: Colors.grey[700],
+              //         ),
+              //   ),
+              // ),
             ],
           ),
         ),

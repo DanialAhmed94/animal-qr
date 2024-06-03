@@ -3,6 +3,11 @@ class Pet {
   String? hiddenId;
   String? petName;
   String? petDob;
+String? address;
+String? description;
+String? parent1;
+String? parent2;
+  String? age;
   String? petGender;
   String? petType;
   String? petBreed;
@@ -20,6 +25,11 @@ class Pet {
   Pet({
     this.userId,
     this.hiddenId,
+    this.age,
+    this.description,
+    this.parent1,
+    this.parent2,
+    this.address,
      this.petName,
      this.petDob,
      this.petGender,

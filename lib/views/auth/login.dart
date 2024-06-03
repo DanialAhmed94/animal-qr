@@ -24,6 +24,7 @@ class _LoginState extends State<Login> {
   FocusNode _passwordFocus = FocusNode();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _showCircularProgress = false;
 
   @override
   void dispose() {
@@ -33,31 +34,44 @@ class _LoginState extends State<Login> {
     _emailController.dispose();
     _passwordController.dispose();
   }
+
   Future<void> _Login(BuildContext context) async {
     String password = _passwordController.text;
     String email = _emailController.text;
+
     if (_formKey.currentState!.validate()) {
       try {
+        setState(() {
+          _showCircularProgress = true; // Show circular progress indicator
+        });
         final String url = AppConstants.baseUrl;
-        final response = await http.post(
-          Uri.parse('$url/authin?email=$email&password=$password'));
+        final response = await http
+            .post(Uri.parse('$url/authin?email=$email&password=$password'));
 
         if (response.statusCode == 200) {
           final Map<String, dynamic> responseBody = jsonDecode(response.body);
-                final String token = responseBody['data']['response']['token'];
-                final int authenticatedUserId = responseBody['data']['user']['id'];
-                final int owned_qrs =  responseBody['data']['owned_qrs'];
-                // Save the token using SharedPreferences
-                final SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setString('auth_token', token.toString());
-                await prefs.setInt('authenticatedUserId', authenticatedUserId);
-                await prefs.setInt('owned_qrs', owned_qrs);
+          final String token = responseBody['data']['response']['token'];
+          final int authenticatedUserId = responseBody['data']['user']['id'];
+          final int owned_qrs = responseBody['data']['owned_qrs'];
 
-          Navigator.push(
+          // Save the token using SharedPreferences
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('auth_token', token.toString());
+          await prefs.setInt('authenticatedUserId', authenticatedUserId);
+          await prefs.setInt('owned_qrs', owned_qrs);
+          await prefs.setBool("isLoggedIn", true);
+          setState(() {
+            _showCircularProgress = false; // Hide circular progress indicator
+          });
+
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => HomeView()),
           );
         } else {
+          setState(() {
+            _showCircularProgress = false; // Hide circular progress indicator
+          });
           print('Failed to login: ${response.statusCode}');
           print('Response body: ${response.body}');
           ScaffoldMessenger.of(context).showSnackBar(
@@ -65,6 +79,9 @@ class _LoginState extends State<Login> {
           );
         }
       } catch (error) {
+        setState(() {
+          _showCircularProgress = false; // Hide circular progress indicator
+        });
         print('Error during login: $error');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error occured. $error')),
@@ -73,7 +90,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +159,6 @@ class _LoginState extends State<Login> {
                               right: paddingValue,
                             ),
                             child: TextFormField(
-
                               controller: _emailController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -157,9 +173,8 @@ class _LoginState extends State<Login> {
                                 });
                               },
                               onEditingComplete: () {
-                                setState(() {
-                                  _showLogo = true;
-                                });
+                                _fieldFocusChange(
+                                    context, _emailFocus, _passwordFocus);
                               },
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
@@ -183,26 +198,31 @@ class _LoginState extends State<Login> {
                               right: paddingValue,
                             ),
                             child: TextFormField(
+                              obscureText: _obscureText,
                               controller: _passwordController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter your email';
+                                  return 'Please enter your password';
                                 }
                                 return null;
                               },
                               focusNode: _passwordFocus,
-                              onTap: () {
-                                setState(() {
-                                  _showLogo = false;
-                                });
-                              },
-                              onEditingComplete: () {
-                                setState(() {
-                                  _showLogo = true;
-                                });
-                              },
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
+                                suffix: GestureDetector(
+                                  child: Icon(
+                                    _obscureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.grey,
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      _obscureText =
+                                          !_obscureText; // Toggle password visibility
+                                    });
+                                  },
+                                ),
                                 contentPadding: EdgeInsets.symmetric(
                                   vertical: 10.0,
                                   horizontal: 10,
@@ -237,27 +257,67 @@ class _LoginState extends State<Login> {
                               left: paddingValue,
                               right: paddingValue,
                             ),
-                            child: GestureDetector(
-                              onTap: (){
-                                _Login(context);
-                                print('login tapped');
-                              },
-                              child: Container(
-                                child: Center(
-                                  child: Text(
-                                    "Login",
-                                    textAlign: TextAlign.center,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  child: Center(
+                                    child: Text(
+                                      "Login",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  height: 50,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppConstants.primaryColor,
                                   ),
                                 ),
-                                height: 50,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: AppConstants.primaryColor,
+                                Positioned.fill(
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      onTap: () {
+                                        _Login(context);
+                                        print('login tapped');
+                                      },
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                if (_showCircularProgress)
+                                  CircularProgressIndicator(),
+                                // Show circular progress indicator
+                              ],
                             ),
                           ),
+
+                          // Padding(
+                          //   padding: EdgeInsets.only(
+                          //     left: paddingValue,
+                          //     right: paddingValue,
+                          //   ),
+                          //   child: GestureDetector(
+                          //     onTap: (){
+                          //       _Login(context);
+                          //       print('login tapped');
+                          //     },
+                          //     child: Container(
+                          //       child: Center(
+                          //         child: Text(
+                          //           "Login",
+                          //           textAlign: TextAlign.center,
+                          //         ),
+                          //       ),
+                          //       height: 50,
+                          //       width: double.infinity,
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(10),
+                          //         color: AppConstants.primaryColor,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -276,7 +336,7 @@ class _LoginState extends State<Login> {
                                   ),
                                 ),
                                 onTap: () {
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => SignUP()));
@@ -305,6 +365,12 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
   }
 }
 

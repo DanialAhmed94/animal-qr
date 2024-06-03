@@ -7,6 +7,7 @@ import 'package:pet_project/modal/pet_modal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../home/home.dart';
+import '../../home/home_view.dart';
 
 class BottomWidget extends StatefulWidget {
   BottomWidget(
@@ -40,7 +41,7 @@ class _BottomWidgetState extends State<BottomWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.only(left: 8,right: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -54,75 +55,81 @@ class _BottomWidgetState extends State<BottomWidget> {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              switch (widget.currentIndex) {
-                case 0:
-                  break;
-                case 1:
-                  widget._pageController.animateToPage(
-                    2,
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeIn,
-                  );
-                  break;
-                case 2:
-                  widget._pageController.animateToPage(
-                    3,
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeIn,
-                  );
-                  break;
-                case 3:
-                  widget._pageController.animateToPage(
-                    4,
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeIn,
-                  );
-                  break;
-                case 4:
-                  widget._pageController.animateToPage(
-                    5,
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeIn,
-                  );
-                  break;
-                case 5:
-                  widget._pageController.animateToPage(
-                    6,
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeIn,
-                  );
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                switch (widget.currentIndex) {
+                  case 0:
+                    break;
+                  case 1:
+                    widget._pageController.animateToPage(
+                      2,
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeIn,
+                    );
+                    break;
+                  case 2:
+                    widget._pageController.animateToPage(
+                      3,
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeIn,
+                    );
+                    break;
+                  case 3:
+                    widget._pageController.animateToPage(
+                      4,
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeIn,
+                    );
+                    break;
+                  case 4:
+                    widget._pageController.animateToPage(
+                      5,
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeIn,
+                    );
+                    break;
+                  case 5:
+                    widget._pageController.animateToPage(
+                      6,
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeIn,
+                    );
+            
+                    print('Qr_Id: ${widget.petData.hiddenId}');
+                    print('userId: ${widget.petData.userId}');
+                    print('Name: ${widget.petData.petName}');
+                    print('Type: ${widget.petData.petType}');
+                    print('Breed: ${widget.petData.petBreed}');
+                    print('Gender: ${widget.petData.petGender}');
+                    print('Date of Birth: ${widget.petData.petDob}');
+                    print('Insta: ${widget.petData.instagramUsername}');
+                    print('Tiktok: ${widget.petData.tiktokUsername}');
+                    print('Vaccination: ${widget.petData.vaccination}');
+                    print('Spayed: ${widget.petData.spayed}');
+                    print('Behaviour: ${widget.petData.behaviour}');
+                    print('Anxiety: ${widget.petData.anxiety}');
+                    print('Diet: ${widget.petData.diet}');
+                    print('Weight: ${widget.petData.weight}');
+                    print('Notify: ${widget.petData.notify}');
+                    print('Base64: ${widget.petData.petImage}');
+                    print('parrent1: ${widget.petData.parent1}');
+                    print('parrent2: ${widget.petData.parent2}');
+                    print('about: ${widget.petData.description}');
+                    print('addres: ${widget.petData.address}');
 
-                  print('Qr_Id: ${widget.petData.hiddenId}');
-                  print('userId: ${widget.petData.userId}');
-                  print('Name: ${widget.petData.petName}');
-                  print('Type: ${widget.petData.petType}');
-                  print('Breed: ${widget.petData.petBreed}');
-                  print('Gender: ${widget.petData.petGender}');
-                  print('Date of Birth: ${widget.petData.petDob}');
-                  print('Insta: ${widget.petData.instagramUsername}');
-                  print('Tiktok: ${widget.petData.tiktokUsername}');
-                  print('Vaccination: ${widget.petData.vaccination}');
-                  print('Spayed: ${widget.petData.spayed}');
-                  print('Behaviour: ${widget.petData.behaviour}');
-                  print('Anxiety: ${widget.petData.anxiety}');
-                  print('Diet: ${widget.petData.diet}');
-                  print('Weight: ${widget.petData.weight}');
-                  print('Notify: ${widget.petData.notify}');
-                  print('Base64: ${widget.petData.petImage}');
 
-                  postPet(widget.petData, context, widget.bearerToken);
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
-                  break;
-                default:
-              }
-            },
-            child: SizedBox(
-              height: 60,
-              child: SvgPicture.asset(
-                AppConstants.continueButton2,
-                fit: BoxFit.contain,
+                    postPet(widget.petData, context, widget.bearerToken);
+                    break;
+                  default:
+                }
+              },
+              child: SizedBox(
+                height: 60,
+                child: SvgPicture.asset(
+                  AppConstants.continueButton2,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),

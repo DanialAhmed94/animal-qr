@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pet_project/modal/recievPet_model.dart';
+import 'package:pet_project/views/scanner/scanner_detail_view.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -24,8 +27,7 @@ class _QRScannerViewState extends State<QRScannerView> {
     super.reassemble();
     if (Platform.isAndroid) {
       controller!.pauseCamera();
-    }
-    else if (Platform.isIOS) {
+    } else if (Platform.isIOS) {
       controller!.resumeCamera();
     }
   }
@@ -66,6 +68,8 @@ class _QRScannerViewState extends State<QRScannerView> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final bearerToken = prefs.getString('auth_token');
       if (!_scanning) {
         setState(() {
           _scanning = true;
@@ -79,6 +83,7 @@ class _QRScannerViewState extends State<QRScannerView> {
           // Define custom headers
           Map<String, String> headers = {
             'Custom-Header': 'app',
+            'Authorization': 'Bearer $bearerToken',
           };
           final response = await http.get(Uri.parse(url), headers: headers);
           print("response- $response");
@@ -87,11 +92,24 @@ class _QRScannerViewState extends State<QRScannerView> {
             final _hiddenId = data['unique_id'];
             // Handle the response data as needed
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return AddPetInitial(hiddenId: _hiddenId,);
+              return AddPetInitial(
+                hiddenId: _hiddenId,
+              );
             }));
-             controller?.pauseCamera();
+            controller?.pauseCamera();
             controller?.dispose();
-
+          } else if (response.statusCode == 200) {
+            final responseData = jsonDecode(response.body);
+            final RPet rPet = RPet.fromJson(responseData['data']);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ScannerDetailView(
+                          rPet: rPet,
+                        )));
+            print('rpet object ${rPet.userId}');
+            controller?.pauseCamera();
+            controller?.dispose();
           } else {
             setState(() {
               _errorMessage =
@@ -116,5 +134,4 @@ class _QRScannerViewState extends State<QRScannerView> {
     controller?.dispose();
     super.dispose();
   }
-
 }

@@ -6,35 +6,73 @@ import 'package:http/http.dart' as http;
 import 'dart:convert'; // For JSON encoding/decoding
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SignUP extends StatelessWidget {
+class SignUP extends StatefulWidget {
   SignUP({super.key});
 
+  @override
+  State<SignUP> createState() => _SignUPState();
+}
+
+class _SignUPState extends State<SignUP> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _firstNameController = TextEditingController();
+
   final TextEditingController _lastNameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
   final FocusNode _emailFocus = FocusNode();
+
   final FocusNode _passwordFocus = FocusNode();
+  final FocusNode _firstNmeFocus = FocusNode();
+
+  final FocusNode _lastNameFocus = FocusNode();
+
+  bool _showCircularProgress = false;
+
 
   Future<void> _signUp(BuildContext context) async {
     try {
       if (_formKey.currentState!.validate()) {
+        setState(() {
+          _showCircularProgress = true; // Show circular progress indicator
+        });
         final response = await http.post(
           Uri.parse(
               '${AppConstants.baseUrl}/authup?first_name=${_firstNameController.text}&last_name=${_lastNameController.text}&email=${_emailController.text}&password=${_passwordController.text}'),
         );
 
         if (response.statusCode == 200) {
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Account created successfully.')),
           );
           // // If the server returns a 200 OK response, navigate to the login page.
-          Navigator.push(
+          setState(() {
+            _showCircularProgress = false; // Hide circular progress indicator
+          });
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => Login()),
           );
-        } else {
+        }
+        else if(response.statusCode ==400)
+          {
+            setState(() {
+              _showCircularProgress = false; // Hide circular progress indicator
+            });
+            // If the server did not return a 200 OK response, display an error.
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("This email has already been taken.")),
+            );
+          }
+        else {
+          setState(() {
+            _showCircularProgress = false; // Hide circular progress indicator
+          });
           // If the server did not return a 200 OK response, display an error.
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Failed to sign up. Please try again.')),
@@ -42,6 +80,9 @@ class SignUP extends StatelessWidget {
         }
       }
     } catch (error) {
+      setState(() {
+        _showCircularProgress = false; // Hide circular progress indicator
+      });
       print('Error during login: $error');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error during registration.')),
@@ -109,6 +150,10 @@ class SignUP extends StatelessWidget {
                           ),
                           child: TextFormField(
                             controller: _firstNameController,
+                            focusNode: _firstNmeFocus,
+                            onEditingComplete: () {
+                              _fieldFocusChange(context, _firstNmeFocus, _lastNameFocus);
+                            },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your first name';
@@ -138,6 +183,10 @@ class SignUP extends StatelessWidget {
                           ),
                           child: TextFormField(
                             controller: _lastNameController,
+                            focusNode: _lastNameFocus,
+                            onEditingComplete: () {
+                              _fieldFocusChange(context, _lastNameFocus, _emailFocus);
+                            },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your last name';
@@ -169,6 +218,9 @@ class SignUP extends StatelessWidget {
                             focusNode: _emailFocus,
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
+                            onEditingComplete: () {
+                              _fieldFocusChange(context, _emailFocus, _passwordFocus);
+                            },
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0,
@@ -182,6 +234,13 @@ class SignUP extends StatelessWidget {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your email';
+                              }
+                              // Regular expression for validating an email address
+                              String pattern =
+                                  r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
+                              RegExp regex = RegExp(pattern);
+                              if (!regex.hasMatch(value)) {
+                                return 'Please enter a valid email address';
                               }
                               return null;
                             },
@@ -230,24 +289,62 @@ class SignUP extends StatelessWidget {
                             left: paddingValue,
                             right: paddingValue,
                           ),
-                          child: GestureDetector(
-                            onTap: () => _signUp(context),
-                            child: Container(
-                              child: Center(
-                                child: Text(
-                                  "Signup",
-                                  textAlign: TextAlign.center,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                child: Center(
+                                  child: Text(
+                                    "Signup",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                height: 50,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppConstants.primaryColor,
                                 ),
                               ),
-                              height: 50,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppConstants.primaryColor,
+                              Positioned.fill(
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    onTap: () {
+                                      _signUp(context);
+                                      print('login tapped');
+                                    },
+                                  ),
+                                ),
                               ),
-                            ),
+                              if (_showCircularProgress)
+                                CircularProgressIndicator(), // Show circular progress indicator
+                            ],
                           ),
                         ),
+                        // Padding(
+                        //   padding: EdgeInsets.only(
+                        //     left: paddingValue,
+                        //     right: paddingValue,
+                        //   ),
+                        //   child: GestureDetector(
+                        //     onTap: () => _signUp(context),
+                        //     child: Container(
+                        //       child: Center(
+                        //         child: Text(
+                        //           "Signup",
+                        //           textAlign: TextAlign.center,
+                        //         ),
+                        //       ),
+                        //       height: 50,
+                        //       width: double.infinity,
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(10),
+                        //         color: AppConstants.primaryColor,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -266,7 +363,7 @@ class SignUP extends StatelessWidget {
                                 ),
                               ),
                               onTap: () {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => Login()));
@@ -284,5 +381,9 @@ class SignUP extends StatelessWidget {
         ],
       ),
     );
+  }
+  void _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
   }
 }

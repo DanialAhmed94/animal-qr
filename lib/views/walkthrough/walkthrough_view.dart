@@ -46,7 +46,7 @@ class _WalkthroughViewState extends State<WalkthroughView> {
               if (index == 2) {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => const HomeView(),
+                    builder: (context) =>  Login(),
                   ),
                 );
               }
