@@ -184,6 +184,9 @@ class ProfileView extends StatelessWidget {
               onTap: () async{
                 var prefs= await SharedPreferences.getInstance();
                 await prefs.setBool("isLoggedIn", false);
+                await prefs.setString("fcm_token", "");
+                await prefs.setString("auth_token", "");
+                await prefs.setInt('authenticatedUserId', 0);
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

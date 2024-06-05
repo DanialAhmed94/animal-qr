@@ -171,6 +171,8 @@ class _AddPetInitialState extends State<AddPetInitial> {
   final Curve curve = Curves.easeIn;
   int? _authentiatedUserId;
   String? _bearerToken;
+  late int step;
+  final int totalSteps = 6;
 
   Future<int?> retrieveUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -184,6 +186,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
   @override
   void initState() {
     super.initState();
+    step = 1;
     _pageController = PageController(initialPage: 0);
     _pages = [];
     retrieveUserId().then((value) {
@@ -205,7 +208,9 @@ class _AddPetInitialState extends State<AddPetInitial> {
       _bearerToken = value.toString();
     });
   }
-
+  double calculateProgress(int step, int totalSteps) {
+    return step / totalSteps;
+  }
   @override
   void dispose() {
     _pageController.dispose();
@@ -243,8 +248,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
-                      },
+                        Navigator.of(context).pop();                      },
                       child: SvgPicture.asset(
                         AppConstants.backIconTop,
                       ),
@@ -276,7 +280,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
                               width: 24,
                             ),
                             Text(
-                              "STEP 1/6",
+                              "STEP $step/6",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge
@@ -291,7 +295,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 60.0),
                         child: LinearProgressIndicator(
-                          value: .5,
+                          value: calculateProgress(step, totalSteps),
                           minHeight: 9,
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -310,6 +314,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
                 },
                 onPageChanged: (value) {
                   setState(() {
+                    step++;
                     currentIndex = value;
                   });
                 },

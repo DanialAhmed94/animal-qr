@@ -11,6 +11,7 @@ import 'package:pet_project/app_theme.dart';
 import 'package:pet_project/views/home/home_view.dart';
 
 import 'package:pet_project/views/splash_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'local.notification.dart';
@@ -54,9 +55,12 @@ void main() async {
   if (kDebugMode) {
     print('Permission granted: ${settings.authorizationStatus}');
   }
+  var prefs = await SharedPreferences.getInstance();
+
   String? token = await messaging.getToken();
   print('Registration Token=$token');
 
+  await prefs.setString('fcm_token', token.toString());
 
   await LocalNotification.initialize(flutterLocalNotificationsPlugin);
   SystemChrome.setSystemUIOverlayStyle(

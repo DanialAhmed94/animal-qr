@@ -38,15 +38,17 @@ class _LoginState extends State<Login> {
   Future<void> _Login(BuildContext context) async {
     String password = _passwordController.text;
     String email = _emailController.text;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
           _showCircularProgress = true; // Show circular progress indicator
         });
+        String? fcm_token = await prefs.getString("fcm_token");
         final String url = AppConstants.baseUrl;
         final response = await http
-            .post(Uri.parse('$url/authin?email=$email&password=$password'));
+            .post(Uri.parse('$url/authin?email=$email&password=$password&device_token=$fcm_token'));
 
         if (response.statusCode == 200) {
           final Map<String, dynamic> responseBody = jsonDecode(response.body);
@@ -55,7 +57,7 @@ class _LoginState extends State<Login> {
           final int owned_qrs = responseBody['data']['owned_qrs'];
 
           // Save the token using SharedPreferences
-          final SharedPreferences prefs = await SharedPreferences.getInstance();
+
           await prefs.setString('auth_token', token.toString());
           await prefs.setInt('authenticatedUserId', authenticatedUserId);
           await prefs.setInt('owned_qrs', owned_qrs);

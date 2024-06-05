@@ -15,6 +15,9 @@ class ScannerDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final topPosition = screenHeight * 0.43;
+    final dogTopPosition= screenHeight * 0.23;
     return Scaffold(
       body: Stack(
         children: [
@@ -26,7 +29,7 @@ class ScannerDetailView extends StatelessWidget {
             ],
           ),
           Positioned.fill(
-            top: 290,
+            top: topPosition,
             // right: 0,
             // left: 0,
             child: Container(
@@ -355,19 +358,43 @@ class ScannerDetailView extends StatelessWidget {
             left: 8.0,
             top: 40,
             child: GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: () =>  Navigator.of(context).pop(),
               child: SvgPicture.asset(
                 AppConstants.backIcon,
               ),
             ),
           ),
           Positioned(
-            top: 50,
+            top: dogTopPosition,
             left: 0.0,
             right: 0.0,
-            child: rPet.image1==null || rPet.image2 ==null ? Image.asset(AppConstants.qrDog):
-              _buildBase64Image(rPet.image1)
-          ),
+            child: CircleAvatar(
+              radius: 80,
+              backgroundImage:
+              //decoded image
+              rPet.image1 != null
+                  ? NetworkImage(
+                  "${AppConstants.baseUrlPet}/${rPet.image1}")
+                  : AssetImage('assets/home/default.jpg') as ImageProvider,
+            ),
+          )
+          // Positioned(
+          //   top: 50,
+          //   left: 0.0,
+          //   right: 0.0,
+          //   child:CircleAvatar(
+          //     radius: 25,
+          //     backgroundImage:
+          //     //decoded image
+          //     rPet.image1 != null
+          //         ?  NetworkImage("${AppConstants.baseUrlPet}/${rPet.image1}")
+          //         : AssetImage('AppConstants.qrDog') as ImageProvider,
+          //   ),
+          //
+          //   // rPet.image1==null || rPet.image2 ==null ? Image.asset(AppConstants.qrDog):
+          //   //  // _buildBase64Image(rPet.image1)
+          //   // NetworkImage("${AppConstants.baseUrlPet}/${rPet.image1}")
+          // ),
         ],
       ),
     );

@@ -22,6 +22,13 @@ class _QRScannerViewState extends State<QRScannerView> {
   bool _scanning = false;
   String? _errorMessage;
 
+  void _rescan() {
+    setState(() {
+      _scanning = false;
+      _errorMessage = null;
+    });
+    controller?.resumeCamera();
+  }
   @override
   void reassemble() {
     super.reassemble();
@@ -50,7 +57,8 @@ class _QRScannerViewState extends State<QRScannerView> {
           Expanded(
             flex: 1,
             child: Center(
-              child: _scanning
+              child:
+              _scanning
                   ? CircularProgressIndicator()
                   : _errorMessage != null
                       ? Text('Error: $_errorMessage',

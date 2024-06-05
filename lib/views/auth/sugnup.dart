@@ -40,9 +40,12 @@ class _SignUPState extends State<SignUP> {
         setState(() {
           _showCircularProgress = true; // Show circular progress indicator
         });
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        String? fcm_token = await prefs.getString("fcm_token");
+
         final response = await http.post(
           Uri.parse(
-              '${AppConstants.baseUrl}/authup?first_name=${_firstNameController.text}&last_name=${_lastNameController.text}&email=${_emailController.text}&password=${_passwordController.text}'),
+              '${AppConstants.baseUrl}/authup?first_name=${_firstNameController.text}&last_name=${_lastNameController.text}&email=${_emailController.text}&password=${_passwordController.text}&device_token=$fcm_token'),
         );
 
         if (response.statusCode == 200) {
