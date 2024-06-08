@@ -262,6 +262,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
             ),
             Stack(
               children: [
+
                 Center(child: SvgPicture.asset(AppConstants.statusContainer)),
                 Positioned(
                   left: 0.0,
@@ -272,10 +273,14 @@ class _AddPetInitialState extends State<AddPetInitial> {
                         padding: const EdgeInsets.only(left: 30.0, top: 5),
                         child: Row(
                           children: [
-                            const CircleAvatar(
+                            CircleAvatar(
                               radius: 28,
-                              backgroundColor: Colors.white,
+                              backgroundImage: AssetImage('assets/home/default.jpg') as ImageProvider,
                             ),
+                            // const CircleAvatar(
+                            //   radius: 28,
+                            //   backgroundColor: Colors.white,
+                            // ),
                             const SizedBox(
                               width: 24,
                             ),

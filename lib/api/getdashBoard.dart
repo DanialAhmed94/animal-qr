@@ -6,7 +6,7 @@ import 'package:tuple/tuple.dart';
 import '../constants/app_constants.dart';
 import '../modal/dashboard_model.dart';
 
-Future<Tuple2<User, int>> getDashBoard() async {
+Future<Tuple3<User, int,int>> getDashBoard() async {
   try {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('auth_token');
@@ -30,8 +30,12 @@ Future<Tuple2<User, int>> getDashBoard() async {
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(response.body);
       final Map<String, dynamic> userData = responseData['user'];
+
       final int ownedQrs = responseData['owned_qrs'];
+      final int notifications_count = responseData['notifications_count'];
       await prefs.setInt('owned_qrs', ownedQrs);
+      await prefs.setInt('notifications_count', notifications_count);
+
       // Parse user data
       final User user = User.fromJson(userData);
 
@@ -41,7 +45,7 @@ Future<Tuple2<User, int>> getDashBoard() async {
       await prefs.setString("userCreatedAt", user.createdAt.toString());
 
       // Now you have both user data and owned_qrs, you can return them as needed
-      return Tuple2<User, int>(user, ownedQrs);
+      return Tuple3<User, int,int>(user, ownedQrs,notifications_count);
 
     } else {
       throw Exception('Failed to load user data');

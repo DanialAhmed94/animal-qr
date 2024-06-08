@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
@@ -35,21 +36,32 @@ class _SignUPState extends State<SignUP> {
 
 
   Future<void> _signUp(BuildContext context) async {
+    // final SharedPreferences prefs1 = await SharedPreferences.getInstance();
+    // String? token = await FirebaseMessaging.instance.getToken();
+    // if (token != null) {
+    //   await prefs1.setString('fcm_token', token);
+    // }
+
     try {
       if (_formKey.currentState!.validate()) {
         setState(() {
           _showCircularProgress = true; // Show circular progress indicator
         });
+
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String? fcm_token = await prefs.getString("fcm_token");
+        String? fcmToken = prefs.getString("fcm_token");
+        print('Retrieved FCM Token from SharedPreferences: $fcmToken');
 
         final response = await http.post(
           Uri.parse(
-              '${AppConstants.baseUrl}/authup?first_name=${_firstNameController.text}&last_name=${_lastNameController.text}&email=${_emailController.text}&password=${_passwordController.text}&device_token=$fcm_token'),
+              '${AppConstants.baseUrl}/authup?first_name=${_firstNameController
+                  .text}&last_name=${_lastNameController
+                  .text}&email=${_emailController
+                  .text}&password=${_passwordController
+                  .text}&device_token=$fcmToken'),
         );
 
         if (response.statusCode == 200) {
-
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Account created successfully.')),
           );
@@ -62,16 +74,15 @@ class _SignUPState extends State<SignUP> {
             MaterialPageRoute(builder: (context) => Login()),
           );
         }
-        else if(response.statusCode ==400)
-          {
-            setState(() {
-              _showCircularProgress = false; // Hide circular progress indicator
-            });
-            // If the server did not return a 200 OK response, display an error.
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("This email has already been taken.")),
-            );
-          }
+        else if (response.statusCode == 400) {
+          setState(() {
+            _showCircularProgress = false; // Hide circular progress indicator
+          });
+          // If the server did not return a 200 OK response, display an error.
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("This email has already been taken.")),
+          );
+        }
         else {
           setState(() {
             _showCircularProgress = false; // Hide circular progress indicator
@@ -95,9 +106,18 @@ class _SignUPState extends State<SignUP> {
 
   @override
   Widget build(BuildContext context) {
-    double paddingValue = MediaQuery.of(context).size.width * 0.1;
-    double leftPadding = MediaQuery.of(context).size.width * 0.05;
-    double rightPadding = MediaQuery.of(context).size.width * 0.05;
+    double paddingValue = MediaQuery
+        .of(context)
+        .size
+        .width * 0.1;
+    double leftPadding = MediaQuery
+        .of(context)
+        .size
+        .width * 0.05;
+    double rightPadding = MediaQuery
+        .of(context)
+        .size
+        .width * 0.05;
     return Scaffold(
       body: Stack(
         children: [
@@ -108,8 +128,14 @@ class _SignUPState extends State<SignUP> {
           Positioned(
             bottom: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.7,
-              width: MediaQuery.of(context).size.width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.7,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
@@ -128,7 +154,7 @@ class _SignUPState extends State<SignUP> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.only(left: leftPadding, right: rightPadding),
+                    EdgeInsets.only(left: leftPadding, right: rightPadding),
                     child: Text(
                       "Welcome! Please enter your information below and get started.",
                       textAlign: TextAlign.center,
@@ -144,7 +170,7 @@ class _SignUPState extends State<SignUP> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         SizedBox(
-                          height: 20,
+                          height: 40,
                         ),
                         Padding(
                           padding: EdgeInsets.only(
@@ -155,7 +181,8 @@ class _SignUPState extends State<SignUP> {
                             controller: _firstNameController,
                             focusNode: _firstNmeFocus,
                             onEditingComplete: () {
-                              _fieldFocusChange(context, _firstNmeFocus, _lastNameFocus);
+                              _fieldFocusChange(
+                                  context, _firstNmeFocus, _lastNameFocus);
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -188,7 +215,8 @@ class _SignUPState extends State<SignUP> {
                             controller: _lastNameController,
                             focusNode: _lastNameFocus,
                             onEditingComplete: () {
-                              _fieldFocusChange(context, _lastNameFocus, _emailFocus);
+                              _fieldFocusChange(
+                                  context, _lastNameFocus, _emailFocus);
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -222,7 +250,8 @@ class _SignUPState extends State<SignUP> {
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             onEditingComplete: () {
-                              _fieldFocusChange(context, _emailFocus, _passwordFocus);
+                              _fieldFocusChange(
+                                  context, _emailFocus, _passwordFocus);
                             },
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
@@ -285,7 +314,10 @@ class _SignUPState extends State<SignUP> {
                           height: 10,
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.01,
                         ),
                         Padding(
                           padding: EdgeInsets.only(
@@ -321,7 +353,8 @@ class _SignUPState extends State<SignUP> {
                                 ),
                               ),
                               if (_showCircularProgress)
-                                CircularProgressIndicator(), // Show circular progress indicator
+                                CircularProgressIndicator(),
+                              // Show circular progress indicator
                             ],
                           ),
                         ),
@@ -385,7 +418,9 @@ class _SignUPState extends State<SignUP> {
       ),
     );
   }
-  void _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+
+  void _fieldFocusChange(BuildContext context, FocusNode currentFocus,
+      FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }

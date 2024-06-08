@@ -179,14 +179,23 @@ class ProfileView extends StatelessWidget {
               }),
           const Divider(),
           ListTile(
-              title: Text("Logout",style: Theme.of(context).textTheme.titleMedium,),
-              leading: Image.asset("${AppConstants.logout}",height: 35,width: 35,),
-              onTap: () async{
-                var prefs= await SharedPreferences.getInstance();
+              title: Text(
+                "Logout",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              leading: Image.asset(
+                "${AppConstants.logout}",
+                height: 35,
+                width: 35,
+              ),
+              onTap: () async {
+                var prefs = await SharedPreferences.getInstance();
                 await prefs.setBool("isLoggedIn", false);
-                await prefs.setString("fcm_token", "");
-                await prefs.setString("auth_token", "");
-                await prefs.setInt('authenticatedUserId', 0);
+                await prefs.remove("fcm_token");
+                await prefs.remove("auth_token");
+                await prefs.remove('authenticatedUserId');
+                prefs.remove('fcm_token');
+
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

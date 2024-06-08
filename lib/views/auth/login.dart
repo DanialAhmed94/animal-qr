@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -36,6 +37,12 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> _Login(BuildContext context) async {
+    // final SharedPreferences prefs1 = await SharedPreferences.getInstance();
+    // String? token = await FirebaseMessaging.instance.getToken();
+    // if (token != null) {
+    //   await prefs1.setString('fcm_token', token);
+    // }
+    
     String password = _passwordController.text;
     String email = _emailController.text;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -45,10 +52,20 @@ class _LoginState extends State<Login> {
         setState(() {
           _showCircularProgress = true; // Show circular progress indicator
         });
-        String? fcm_token = await prefs.getString("fcm_token");
+
+        String? fcmToken = prefs.getString("fcm_token");
+        print('Retrieved FCM Token from SharedPreferences: $fcmToken');
+
         final String url = AppConstants.baseUrl;
-        final response = await http
-            .post(Uri.parse('$url/authin?email=$email&password=$password&device_token=$fcm_token'));
+        //
+        // final Map<String, dynamic> requestBody = {
+        //   "device_token": fcmToken,
+        //   "email": email,
+        //   "password": password
+        // };
+        // final response  = await http.post(Uri.parse('$url/authin'),body: jsonEncode(requestBody));
+        final response = await http.post(Uri.parse(
+            '$url/authin?email=$email&password=$password&device_token=$fcmToken'));
 
         if (response.statusCode == 200) {
           final Map<String, dynamic> responseBody = jsonDecode(response.body);
@@ -96,7 +113,10 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    double paddingValue = MediaQuery.of(context).size.width * 0.1;
+    double paddingValue = MediaQuery
+        .of(context)
+        .size
+        .width * 0.1;
 
     return WillPopScope(
       onWillPop: () async {
@@ -121,8 +141,14 @@ class _LoginState extends State<Login> {
             Positioned(
               bottom: 0,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.6,
-                width: MediaQuery.of(context).size.width,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.6,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
@@ -221,7 +247,7 @@ class _LoginState extends State<Login> {
                                   onTap: () {
                                     setState(() {
                                       _obscureText =
-                                          !_obscureText; // Toggle password visibility
+                                      !_obscureText; // Toggle password visibility
                                     });
                                   },
                                 ),
@@ -252,7 +278,10 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01,
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.01,
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -355,8 +384,14 @@ class _LoginState extends State<Login> {
             ),
             if (_showLogo)
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.4 - 50,
-                left: MediaQuery.of(context).size.width * 0.5 - 50,
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.4 - 50,
+                left: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.5 - 50,
                 child: SvgPicture.asset(
                   "assets/svg/app_icon.svg",
                   height: 100,
@@ -369,8 +404,8 @@ class _LoginState extends State<Login> {
     );
   }
 
-  void _fieldFocusChange(
-      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+  void _fieldFocusChange(BuildContext context, FocusNode currentFocus,
+      FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }

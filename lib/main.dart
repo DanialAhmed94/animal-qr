@@ -55,8 +55,20 @@ void main() async {
   if (kDebugMode) {
     print('Permission granted: ${settings.authorizationStatus}');
   }
-  var prefs = await SharedPreferences.getInstance();
 
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  // try {
+  //   String? token = await FirebaseMessaging.instance.getToken();
+  //   if (token != null) {
+  //     await prefs.setString('fcm_token', token);
+  //     print('FCM Token=$token');
+  //   } else {
+  //     print('Failed to get FCM token');
+  //   }
+  // } catch (e) {
+  //   print('Error getting FCM token: $e');
+  // }
   String? token = await messaging.getToken();
   print('Registration Token=$token');
 

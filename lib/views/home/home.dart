@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pet_project/api/getdashBoard.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/modal/dashboard_model.dart';
 import 'package:pet_project/views/addPet/add_pet.dart';
+import 'package:pet_project/views/home/widgets/all_notifications_view.dart';
 import 'package:pet_project/views/home/widgets/all_pets_view.dart';
 import 'package:pet_project/views/home/widgets/info_card.dart';
 import 'package:tuple/tuple.dart';
@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Tuple2<User, int>>(
+    return FutureBuilder<Tuple3<User, int,int>>(
         future: getDashBoard(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -29,9 +29,10 @@ class Home extends StatelessWidget {
               child: Text("error ${snapshot.error}"),
             );
           } else {
-            final Tuple2<User, int>? data = snapshot.data;
+            final Tuple3<User, int,int>? data = snapshot.data;
             final User _user = data!.item1;
             final int _ownedQrs = data.item2;
+            final int _notifications_count = data.item3;
             return Scaffold(
               appBar: AppBar(
                 elevation: 0.0,
@@ -47,7 +48,9 @@ class Home extends StatelessWidget {
                 actions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 14.0),
-                    child: SvgPicture.asset(AppConstants.notificationIcon),
+                    child: GestureDetector(child: SvgPicture.asset(AppConstants.notificationIcon),onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AllNotificationsView()));
+                    },),
                   ),
                 ],
               ),
@@ -319,11 +322,11 @@ class Home extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const InfoCard(
+                   InfoCard(
                     imagePath: AppConstants.notificationBell,
                     imageBackgroundColor: AppConstants.lightBlueColor,
                     title: "NOTIFICATIONS",
-                    count: "0",
+                    count: "$_notifications_count",
                     percentColor: AppConstants.deepBlueColor,
                     percentCount: "43%",
                     trailingText: "Unread",
