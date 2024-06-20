@@ -66,6 +66,7 @@ class AppConstants {
   static const String privacyPolicy = "assets/svg/privacy_policy.svg";
   static const String contactUS = "assets/svg/contact_us.svg";
   static const String logout = "assets/svg/check-out.png";
+  static const String delete = "assets/svg/garbage.png";
   static const String feedBack = "assets/svg/feedback.svg";
   static const String aboutUs = "assets/svg/about_us.svg";
   static const String rateUs = "assets/svg/rate_us.svg";

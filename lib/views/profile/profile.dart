@@ -6,6 +6,7 @@ import 'package:pet_project/views/splash_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../api/delete_account.dart';
 import 'contact_us.dart';
 
 class ProfileView extends StatelessWidget {
@@ -200,6 +201,24 @@ class ProfileView extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => SplashView()));
+              }),
+          const Divider(),
+          ListTile(
+              title: Text(
+                "Delete Account",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              leading: Image.asset(
+                "${AppConstants.delete}",
+                height: 35,
+                width: 35,
+              ),
+              onTap: () async {
+                var prefs = await SharedPreferences.getInstance();
+                await prefs.setBool("isLoggedIn", false);
+                final userId = await prefs.getInt("authenticatedUserId");
+                final String? bearerToken = prefs.getString('auth_token');
+                deleteAccount(userId.toString(), bearerToken, context);
               }),
           const Divider(),
         ],
