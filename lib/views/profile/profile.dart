@@ -197,10 +197,8 @@ class ProfileView extends StatelessWidget {
                 await prefs.remove('authenticatedUserId');
                 prefs.remove('fcm_token');
 
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SplashView()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => SplashView()));
               }),
           const Divider(),
           ListTile(
@@ -214,11 +212,47 @@ class ProfileView extends StatelessWidget {
                 width: 35,
               ),
               onTap: () async {
-                var prefs = await SharedPreferences.getInstance();
-                await prefs.setBool("isLoggedIn", false);
-                final userId = await prefs.getInt("authenticatedUserId");
-                final String? bearerToken = prefs.getString('auth_token');
-                deleteAccount(userId.toString(), bearerToken, context);
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(
+                          'Are you sure you want to delete your account?',
+                          style: TextStyle(color: Colors.black)),
+                      // content: Text(
+                      //     'Your account is deleted successfully. Hope to see you soon',
+                      //     style: TextStyle(color: Colors.black)),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () async {
+                            var prefs = await SharedPreferences.getInstance();
+                            await prefs.setBool("isLoggedIn", false);
+                            final userId =
+                                await prefs.getInt("authenticatedUserId");
+                            final String? bearerToken =
+                                prefs.getString('auth_token');
+                            deleteAccount(
+                                userId.toString(), bearerToken, context);
+                          },
+                          child: Text('OK'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: Text('Cancel',
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                // var prefs = await SharedPreferences.getInstance();
+                // await prefs.setBool("isLoggedIn", false);
+                // final userId = await prefs.getInt("authenticatedUserId");
+                // final String? bearerToken = prefs.getString('auth_token');
+                // deleteAccount(userId.toString(), bearerToken, context);
               }),
           const Divider(),
         ],

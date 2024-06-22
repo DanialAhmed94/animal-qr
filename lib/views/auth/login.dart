@@ -262,21 +262,21 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: paddingValue,
-                              right: paddingValue,
-                            ),
-                            child: Text(
-                              "Forgot Password",
-                              style: TextStyle(
-                                color: Color(0xFF339FA8),
-                              ),
-                            ),
-                          ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
+                          // Padding(
+                          //   padding: EdgeInsets.only(
+                          //     left: paddingValue,
+                          //     right: paddingValue,
+                          //   ),
+                          //   child: Text(
+                          //     "Forgot Password",
+                          //     style: TextStyle(
+                          //       color: Color(0xFF339FA8),
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(
                             height: MediaQuery
                                 .of(context)
