@@ -288,7 +288,7 @@ class _PetView3State extends State<PetView3> {
                         focusNode: _parrent1FocusNode,
                         controller: _parren1Controller,
                         decoration: InputDecoration(
-                          label: const Text("Parent1"),
+                          label: const Text("First Name pet owner"),
                           border: InputBorder.none,
                           // suffixIcon: SvgPicture.asset(
                           //   AppConstants.idIcon,
@@ -321,7 +321,7 @@ class _PetView3State extends State<PetView3> {
                         focusNode: _parrent2FocusNode,
                         controller: _parren2Controller,
                         decoration: InputDecoration(
-                          label: const Text("Parent2"),
+                          label: const Text("Last Name pet owner"),
                           border: InputBorder.none,
                           // suffixIcon: SvgPicture.asset(
                           //   AppConstants.idIcon,
@@ -355,7 +355,7 @@ class _PetView3State extends State<PetView3> {
                         focusNode: _aboutFocusNode,
                         controller: _aboutController,
                         decoration: InputDecoration(
-                          label: const Text("About pet"),
+                          label: const Text("BIO"),
                           border: InputBorder.none,
                           // suffixIcon: SvgPicture.asset(
                           //   AppConstants.idIcon,
