@@ -28,6 +28,7 @@ Future<void> postPet(Pet petData, BuildContext context, String? bearerToken) asy
       'image': petData.petImage,
       'pet_name': petData.petName,
       'pet_dob': petData.petDob,
+      'phone': petData.phone,
       'instagram_id': petData.instagramUsername,
       'tiktok_id': petData.tiktokUsername,
       'vaccination_status': petData.vaccination,

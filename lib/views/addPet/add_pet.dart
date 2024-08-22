@@ -26,8 +26,13 @@ Future<int?> getOwnedQrs() async
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getInt('owned_qrs');
 }
+
 class _AddPetViewState extends State<AddPetView> {
+
   late Future<int?> _ownedQrs;
+
+
+
   @override
   void initState() {
     super.initState();
@@ -163,6 +168,9 @@ class AddPetInitial extends StatefulWidget {
 }
 
 class _AddPetInitialState extends State<AddPetInitial> {
+
+  final GlobalKey<FormState> _step3FormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _step4FormKey = GlobalKey<FormState>();
   Pet _petData = Pet();
   late List<Widget> _pages;
   late final PageController _pageController;
@@ -197,7 +205,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
         _pages = [
           AddPetView1(petData: _petData),
           PetView2(petData: _petData),
-          PetView3(petData: _petData),
+          PetView3(petData: _petData,formKey: _step3FormKey,),
           PetView4(petData: _petData),
           PetView5(petData: _petData),
           PetView6(petData: _petData),
@@ -343,6 +351,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
               )
             else
               BottomWidget(
+                formKeys: _step3FormKey, /* Add other form keys... */
                 bearerToken: _bearerToken,
                 currentIndex: currentIndex,
                 pageController: _pageController,
@@ -352,6 +361,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
                     case 0:
                       break;
                     case 1:
+
                       _pageController.animateToPage(0,
                           duration: _duration, curve: curve);
                       break;
@@ -370,6 +380,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
                     case 5:
                       _pageController.animateToPage(4,
                           duration: _duration, curve: curve);
+
                       break;
                     default:
                   }

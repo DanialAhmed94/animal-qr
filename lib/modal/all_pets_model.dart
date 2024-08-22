@@ -4,65 +4,67 @@ class UserPet {
   final String? description;
   final String? parent1;
   final String? parent2;
+  final String? phone;
   final String? location;
-  final String gender;
+  final String? gender;
   final String? age;
   final String? petType;
-  final String breed;
-  final String dob;
-  final String weight;
-  final String instaId;
-  final String tiktokId;
-  final String uniqueId;
-  final String userId;
-  final String petCategory;
+  final String? breed;
+  final String? dob;
+  final String? weight;
+  final String? instaId;
+  final String? tiktokId;
+  final String? uniqueId;
+  final String? userId;
+  final String? petCategory;
   final String? additionalBreed;
-  final String vaccinationStatus;
-  final String neuteredStatus;
-  final String behaviour;
-  final String anxiety;
-  final String diet;
-  final String notificationStatus;
+  final String? vaccinationStatus;
+  final String? neuteredStatus;
+  final String? behaviour;
+  final String? anxiety;
+  final String? diet;
+  final String? notificationStatus;
   final String? address;
   final String? image1;
   final String? image2;
   final String? image3;
   final String? image4;
-  final String createdAt;
-  final String updatedAt;
+  final String? createdAt;
+  final String? updatedAt;
 
   UserPet({
     required this.id,
     required this.name,
     this.description,
     this.parent1,
+    this.phone,
     this.parent2,
     this.location,
-    required this.gender,
+     this.gender,
     this.age,
     this.petType,
-    required this.breed,
-    required this.dob,
-    required this.weight,
-    required this.instaId,
-    required this.tiktokId,
-    required this.uniqueId,
-    required this.userId,
-    required this.petCategory,
+     this.breed,
+     this.dob,
+     this.weight,
+     this.instaId,
+     this.tiktokId,
+     this.uniqueId,
+     this.userId,
+     this.petCategory,
     this.additionalBreed,
-    required this.vaccinationStatus,
-    required this.neuteredStatus,
-    required this.behaviour,
-    required this.anxiety,
-    required this.diet,
-    required this.notificationStatus,
+     this.vaccinationStatus,
+     this.neuteredStatus,
+     this.behaviour,
+     this.anxiety,
+     this.diet,
+    this.notificationStatus,
     this.address,
     this.image1,
     this.image2,
     this.image3,
     this.image4,
-    required this.createdAt,
-    required this.updatedAt,
+     this.createdAt,
+     this.updatedAt,
   });
 
   factory UserPet.fromJson(Map<String, dynamic> json) {
@@ -71,6 +73,7 @@ class UserPet {
       name: json['name'],
       description: json['description'],
       parent1: json['parent1'],
+      phone: json['phone'],
       parent2: json['parent2'],
       location: json['location'],
       gender: json['gender'],

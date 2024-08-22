@@ -3,10 +3,11 @@ class Pet {
   String? hiddenId;
   String? petName;
   String? petDob;
-String? address;
-String? description;
-String? parent1;
-String? parent2;
+  String? address;
+  String? phone;
+  String? description;
+  String? parent1;
+  String? parent2;
   String? age;
   String? petGender;
   String? petType;
@@ -27,13 +28,14 @@ String? parent2;
     this.hiddenId,
     this.age,
     this.description,
+    this.phone,
     this.parent1,
     this.parent2,
     this.address,
-     this.petName,
-     this.petDob,
-     this.petGender,
-     this.petType,
+    this.petName,
+    this.petDob,
+    this.petGender,
+    this.petType,
     this.petBreed,
     this.petImage,
     this.instagramUsername,

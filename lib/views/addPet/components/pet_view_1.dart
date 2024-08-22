@@ -25,6 +25,7 @@ class _AddPetView1State extends State<AddPetView1> {
     // TODO: implement initState
     super.initState();
     widget.petData.petType = "Dog";
+    widget.petData.petBreed = "Labrador Retriever";
   }
   @override
   Widget build(BuildContext context) {
@@ -81,6 +82,8 @@ class _AddPetView1State extends State<AddPetView1> {
                   onTap: () => setState(() {
                     _selectedPet = SelectedPet.cat;
                     widget.petData.petType = "Cat";
+                    widget.petData.petBreed = "Ragdoll";
+
                   }),
                   child: Container(
                     decoration: BoxDecoration(

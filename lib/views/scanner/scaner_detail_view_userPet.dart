@@ -73,11 +73,34 @@ class ScannerUserDetailView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 11,
-                    ),
+
                     Padding(
-                      padding: const EdgeInsets.only(left: 22.0),
+                      padding: const EdgeInsets.only(left: 62.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Phone:",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                              fontSize: 16,
+                              color: const Color(0xFF2A5F6B),
+                            ),
+                          ),
+                          Text(
+                            "${rPet.phone}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(color: const Color(0xFF707070)),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 62.0),
                       child: Row(
                         children: [
                           SvgPicture.asset(AppConstants.locationIcon),
@@ -85,7 +108,7 @@ class ScannerUserDetailView extends StatelessWidget {
                             width: 12,
                           ),
                           Text(
-                            "${_checkForNull(rPet.address)}",
+                            "${_checkForNull(rPet.location)}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
