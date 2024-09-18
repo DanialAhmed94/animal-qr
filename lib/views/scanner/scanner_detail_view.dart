@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
 
 import '../../modal/recievPet_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScannerDetailView extends StatelessWidget {
   final RPet rPet;
@@ -53,7 +54,7 @@ class ScannerDetailView extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            "Parents:",
+                            "${AppLocalizations.of(context)?.parents ?? ''}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -101,7 +102,7 @@ class ScannerDetailView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 60.0),
                       child: Text(
-                        "About ${_checkForNull(rPet.name)}",
+    "${AppLocalizations.of(context)?.about ?? ''} ${_checkForNull(rPet.name)}",
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   fontSize: 16,
@@ -146,13 +147,13 @@ class ScannerDetailView extends StatelessWidget {
                             Column(
                               children: [
                                 Text(
-                                  "GENDER",
+                                  "${AppLocalizations.of(context)?.genderCapital ?? ''}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium
                                       ?.copyWith(
                                           color: const Color(0xFF2B5053),
-                                          fontSize: 20.0),
+                                          fontSize: 15.0),
                                 ),
                                 Text(
                                   "${_checkForNull(rPet.gender)}",
@@ -166,16 +167,16 @@ class ScannerDetailView extends StatelessWidget {
                             Column(
                               children: [
                                 Text(
-                                  "AGE",
+                                  "${AppLocalizations.of(context)?.phone ?? ''}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium
                                       ?.copyWith(
                                           color: const Color(0xFF2B5053),
-                                          fontSize: 20.0),
+                                          fontSize: 15.0),
                                 ),
                                 Text(
-                                  "${_checkForNull(rPet.age)} Years",
+                                  "${_checkForNull(rPet.phone)}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium
@@ -186,13 +187,13 @@ class ScannerDetailView extends StatelessWidget {
                             Column(
                               children: [
                                 Text(
-                                  "PET TYPE",
+                                  "${AppLocalizations.of(context)?.petTypeCapital ?? ''}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium
                                       ?.copyWith(
                                           color: const Color(0xFF2B5053),
-                                          fontSize: 20.0),
+                                          fontSize: 15.0),
                                 ),
                                 Text(
                                   "${_checkForNull(rPet.petCategory)}",
@@ -229,7 +230,7 @@ class ScannerDetailView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Breed",
+                                    "${AppLocalizations.of(context)?.breed ?? ''}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -248,7 +249,7 @@ class ScannerDetailView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Pet Birthday",
+                                    "${AppLocalizations.of(context)?.petBirthday ?? ''}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -272,7 +273,7 @@ class ScannerDetailView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Weight",
+                          "${AppLocalizations.of(context)?.weight ?? ''}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -291,7 +292,7 @@ class ScannerDetailView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Instagram",
+                                    "${AppLocalizations.of(context)?.instagram ?? ''}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -318,7 +319,7 @@ class ScannerDetailView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "TikTok",
+                                    "${AppLocalizations.of(context)?.tikTok ?? ''}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium

@@ -14,6 +14,7 @@ import 'package:pet_project/views/addPet/components/pet_view_6.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../scanner/scanner_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddPetView extends StatefulWidget {
   const AddPetView({super.key});
@@ -21,146 +22,162 @@ class AddPetView extends StatefulWidget {
   @override
   State<AddPetView> createState() => _AddPetViewState();
 }
-Future<int?> getOwnedQrs() async
-{
+
+Future<int?> getOwnedQrs() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getInt('owned_qrs');
 }
 
 class _AddPetViewState extends State<AddPetView> {
-
   late Future<int?> _ownedQrs;
-
-
 
   @override
   void initState() {
     super.initState();
     _ownedQrs = getOwnedQrs();
   }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<int?>(future:_ownedQrs, builder: (context,snapshort){
-      if(snapshort.connectionState == ConnectionState.waiting){
-        return Center(child: CircularProgressIndicator(),);
-      }
-      else if(snapshort.hasError){
-        return Center(child: Text("Error: ${snapshort.error}"),);
-      }
-      else{
-        int? ownedQrs = snapshort.data;
-       return Scaffold(
-          appBar: AppBar(
-            title: const Text("Add Pet"),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Card(
-                  elevation: 8.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(28),
-                  ),
-                  child: SizedBox(
-                    height: 225,
-                    width: double.infinity,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Column(
+    return FutureBuilder<int?>(
+        future: _ownedQrs,
+        builder: (context, snapshort) {
+          if (snapshort.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshort.hasError) {
+            return Center(
+              child: Text("${AppLocalizations.of(context)?.error ?? ''}"": " " ${snapshort.error}"),
+            );
+          } else {
+            int? ownedQrs = snapshort.data;
+            return Scaffold(
+              appBar: AppBar(
+                title: Text("${AppLocalizations.of(context)?.addPet ?? ''}"),
+              ),
+              body: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Card(
+                      elevation: 8.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(28),
+                      ),
+                      child: SizedBox(
+                        height: 225,
+                        width: double.infinity,
+                        child: Stack(
+                          fit: StackFit.expand,
                           children: [
-                            const Spacer(),
-                            ownedQrs!=null && ownedQrs>0 ?
                             Column(
                               children: [
-                                Text(
-                                  "You have $ownedQrs registered pets.",
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(
-                                    fontSize: 14.0,
-                                  ),
-                                ),
-                                Text(
-                                  "Want to add more pets?",
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                              ],
-                            ):
-                            Column(children: [
-                              Text(
-                                "You haven't connected any pets",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                              Text(
-                                "Add your first pet.",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                  fontSize: 16.0,
-                                ),
-                              ),],),
-
-                            const Spacer(),
-                            GestureDetector(
-                              onTap: () =>
-                                  Navigator.of(context).push(
+                                const Spacer(),
+                                ownedQrs != null && ownedQrs > 0
+                                    ? Column(
+                                        children: [
+                                          Text(
+                                            "${AppLocalizations.of(context)?.youHave ?? ''} $ownedQrs ${AppLocalizations.of(context)?.regPets ?? ''}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall
+                                                ?.copyWith(
+                                                  fontSize: 14.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            "${AppLocalizations.of(context)?.wantToADDMorePets ?? ''}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall
+                                                ?.copyWith(
+                                                  fontSize: 16.0,
+                                                ),
+                                          ),
+                                        ],
+                                      )
+                                    : Column(
+                                        children: [
+                                          Text(
+                                            "${AppLocalizations.of(context)?.youHaventConnectedPets ?? ''}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall
+                                                ?.copyWith(
+                                                  fontSize: 16.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            "${AppLocalizations.of(context)?.addFirstPet ?? ''}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall
+                                                ?.copyWith(
+                                                  fontSize: 16.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                const Spacer(),
+                                GestureDetector(
+                                  onTap: () => Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (context) => ScannerView())),
-                              // onTap: () => Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const AddPetView(),
-                              //   ),
-                              // ),
-                              child: SvgPicture.asset(
-                                AppConstants.addPet,
-                              ),
+                                  // onTap: () => Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => const AddPetView(),
+                                  //   ),
+                                  // ),
+                                  child: Stack(
+                                    alignment: Alignment.center, // Aligns the text at the center of the SVG
+                                    children: [
+                                      SvgPicture.asset(
+                                        AppConstants.addPet,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          "${AppLocalizations.of(context)?.getStarted??" "}",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: "JakartaRegular",
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,  // Change the text color to make it readable
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
                             ),
-                            const SizedBox(
-                              height: 20,
+                            Positioned(
+                              bottom: 0.0,
+                              right: 16,
+                              child: Image.asset(
+                                AppConstants.dog,
+                              ),
                             ),
                           ],
                         ),
-                        Positioned(
-                          bottom: 0.0,
-                          right: 16,
-                          child: Image.asset(
-                            AppConstants.dog,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        );
-      }
-    });
+              ),
+            );
+          }
+        });
   }
 }
 
 class AddPetInitial extends StatefulWidget {
   final String? hiddenId;
+
   AddPetInitial({this.hiddenId});
 
   @override
@@ -168,7 +185,6 @@ class AddPetInitial extends StatefulWidget {
 }
 
 class _AddPetInitialState extends State<AddPetInitial> {
-
   final GlobalKey<FormState> _step3FormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _step4FormKey = GlobalKey<FormState>();
   Pet _petData = Pet();
@@ -186,6 +202,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt('authenticatedUserId');
   }
+
   Future<String?> retrieveToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('auth_token');
@@ -205,20 +222,25 @@ class _AddPetInitialState extends State<AddPetInitial> {
         _pages = [
           AddPetView1(petData: _petData),
           PetView2(petData: _petData),
-          PetView3(petData: _petData,formKey: _step3FormKey,),
+          PetView3(
+            petData: _petData,
+            formKey: _step3FormKey,
+          ),
           PetView4(petData: _petData),
           PetView5(petData: _petData),
           PetView6(petData: _petData),
         ];
       });
     });
-    retrieveToken().then((value){
+    retrieveToken().then((value) {
       _bearerToken = value.toString();
     });
   }
+
   double calculateProgress(int step, int totalSteps) {
     return step / totalSteps;
   }
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -256,7 +278,8 @@ class _AddPetInitialState extends State<AddPetInitial> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();                      },
+                        Navigator.of(context).pop();
+                      },
                       child: SvgPicture.asset(
                         AppConstants.backIconTop,
                       ),
@@ -270,7 +293,6 @@ class _AddPetInitialState extends State<AddPetInitial> {
             ),
             Stack(
               children: [
-
                 Center(child: SvgPicture.asset(AppConstants.statusContainer)),
                 Positioned(
                   left: 0.0,
@@ -283,7 +305,9 @@ class _AddPetInitialState extends State<AddPetInitial> {
                           children: [
                             CircleAvatar(
                               radius: 28,
-                              backgroundImage: AssetImage('assets/home/default.jpg') as ImageProvider,
+                              backgroundImage:
+                                  AssetImage('assets/home/default.jpg')
+                                      as ImageProvider,
                             ),
                             // const CircleAvatar(
                             //   radius: 28,
@@ -293,7 +317,7 @@ class _AddPetInitialState extends State<AddPetInitial> {
                               width: 24,
                             ),
                             Text(
-                              "STEP $step/6",
+                                "${AppLocalizations.of(context)?.step ?? ''} $step/6",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge
@@ -327,9 +351,16 @@ class _AddPetInitialState extends State<AddPetInitial> {
                 },
                 onPageChanged: (value) {
                   setState(() {
-                    step++;
+                    if (value > currentIndex) {
+                      // Moving forward, increment step
+                      step++;
+                    } else if (value < currentIndex) {
+                      // Moving backward, decrement step
+                      step--;
+                    }
                     currentIndex = value;
                   });
+                 ;
                 },
                 itemCount: _pages.length,
               ),
@@ -343,15 +374,52 @@ class _AddPetInitialState extends State<AddPetInitial> {
                     curve: curve,
                   );
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8,right: 8),                  child: SvgPicture.asset(
-                    AppConstants.continueButton1,
+                child:Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: SizedBox(
+                    height: 60.0, // Set a finite height
+                    child: Stack(
+                      children: [
+                        // SVG image fills the available space
+                        SvgPicture.asset(
+                          AppConstants.continueButton1,
+                          fit: BoxFit.cover, // Adjust as needed
+                          width: double.infinity,
+                          height: double.infinity,
+                        ),
+                        // Text aligned to the left side
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16.0), // Adjust left padding as needed
+                            child: Text(
+                              "${AppLocalizations.of(context)?.continueButton ?? ' '}",
+                              style: TextStyle(
+                                color: Colors.black, // Ensure visibility over the image
+                                fontSize: 32,
+                                fontFamily: "JakartaSemiBold",
+                                fontWeight: FontWeight.bold,
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(1.0, 1.0),
+                                    blurRadius: 2.0,
+                                    color: Colors.black45,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
+
               )
             else
               BottomWidget(
-                formKeys: _step3FormKey, /* Add other form keys... */
+                formKeys: _step3FormKey,
+                /* Add other form keys... */
                 bearerToken: _bearerToken,
                 currentIndex: currentIndex,
                 pageController: _pageController,
@@ -361,7 +429,6 @@ class _AddPetInitialState extends State<AddPetInitial> {
                     case 0:
                       break;
                     case 1:
-
                       _pageController.animateToPage(0,
                           duration: _duration, curve: curve);
                       break;

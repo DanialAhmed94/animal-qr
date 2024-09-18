@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
+import 'package:pet_project/views/profile/languageSelection.dart';
 import 'package:pet_project/views/profile/profile_detail.dart';
 import 'package:pet_project/views/splash_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../api/delete_account.dart';
 import 'contact_us.dart';
@@ -34,7 +36,7 @@ class ProfileView extends StatelessWidget {
     } catch (error) {
       // If an error occurs during either attempt, show an error message
       _showErrorDialog(
-          context, 'An error occurred while trying to send feedback.');
+          context, "${AppLocalizations.of(context)?.errorOccuredSendingFeedback ?? ''}");
     }
   }
 
@@ -64,11 +66,11 @@ class ProfileView extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Error'),
+          title: Text("${AppLocalizations.of(context)?.error ?? ''}"),
           content: Text(message),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: Text("${AppLocalizations.of(context)?.ok ?? ''}"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -95,14 +97,14 @@ class ProfileView extends StatelessWidget {
         surfaceTintColor: Colors.white,
         shadowColor: Colors.black,
         toolbarHeight: 90,
-        title: const Row(
+        title:  Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //CircleAvatar(),
             SizedBox(
               width: 12,
             ),
-            Text("Profile"),
+            Text(AppLocalizations.of(context)?.profile ?? ''), // This will work as expected
           ],
         ),
       ),
@@ -111,12 +113,12 @@ class ProfileView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 22.0, bottom: 17),
             child: Text(
-              "Account",
+              "${AppLocalizations.of(context)?.account ?? ''}",
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           ProfileTile(
-              title: "My Profile",
+              title: "${AppLocalizations.of(context)?.myProfile ?? ''}",
               leadingImage: AppConstants.myProfile,
               onTap: () {
                 Navigator.push(
@@ -124,36 +126,10 @@ class ProfileView extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ProfileDetailView()));
               }),
-          // const Divider(),
-          // ProfileTile(
-          //     title: "My Address",
-          //     leadingImage: AppConstants.myAddress,
-          //     onTap: () {}),
-          // const Divider(),
-          // ProfileTile(
-          //     title: "My Order",
-          //     leadingImage: AppConstants.myOrder,
-          //     onTap: () {}),
-          // const Divider(),
-          // ProfileTile(
-          //     title: "Language",
-          //     leadingImage: AppConstants.language,
-          //     onTap: () {}),
-          // const Divider(),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 22.0, top: 11, bottom: 17),
-          //   child: Text(
-          //     "Information",
-          //     style: Theme.of(context).textTheme.titleLarge,
-          //   ),
-          // ),
-          // ProfileTile(
-          //     title: "Privacy Policy",
-          //     leadingImage: AppConstants.privacyPolicy,
-          //     onTap: () {}),
+
           const Divider(),
           ProfileTile(
-              title: "Contact us",
+              title: "${AppLocalizations.of(context)?.contactUs ?? ''}",
               leadingImage: AppConstants.contactUS,
               onTap: () {
                 Navigator.push(
@@ -162,18 +138,9 @@ class ProfileView extends StatelessWidget {
                         builder: (context) => ContactDetailView()));
               }),
           const Divider(),
-          // ProfileTile(
-          //     title: "Rate us",
-          //     leadingImage: AppConstants.rateUs,
-          //     onTap: () {}),
-          // const Divider(),
-          // ProfileTile(
-          //     title: "About us",
-          //     leadingImage: AppConstants.aboutUs,
-          //     onTap: () {}),
-          // const Divider(),
+
           ProfileTile(
-              title: "Feedback",
+              title: "${AppLocalizations.of(context)?.feedback ?? ''}",
               leadingImage: AppConstants.feedBack,
               onTap: () {
                 _sendFeedback(context);
@@ -181,7 +148,28 @@ class ProfileView extends StatelessWidget {
           const Divider(),
           ListTile(
               title: Text(
-                "Logout",
+                "${AppLocalizations.of(context)?.languageSetting ?? ''}",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              leading: Image.asset(
+                "${AppConstants.setting}",
+                height: 35,
+                width: 35,
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LanguageSelectionScreen()));
+              }),
+
+          // ProfileTile(
+          //     title: "${AppLocalizations.of(context)?.languageSetting ?? ''}",
+          //     leadingImage: AppConstants.setting ,
+          //     onTap: () {
+          //       Navigator.push(context, MaterialPageRoute(builder: (context)=>LanguageSelectionScreen()));
+          //     }),
+          const Divider(),
+          ListTile(
+              title: Text(
+                "${AppLocalizations.of(context)?.logout ?? ''}",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               leading: Image.asset(
@@ -203,7 +191,7 @@ class ProfileView extends StatelessWidget {
           const Divider(),
           ListTile(
               title: Text(
-                "Delete Account",
+                "${AppLocalizations.of(context)?.deleteAccount ?? ''}",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               leading: Image.asset(
@@ -218,7 +206,7 @@ class ProfileView extends StatelessWidget {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: Text(
-                          'Are you sure you want to delete your account?',
+                          "${AppLocalizations.of(context)?.areYouSureToDeleteAccount ?? ''}",
                           style: TextStyle(color: Colors.black)),
                       // content: Text(
                       //     'Your account is deleted successfully. Hope to see you soon',
@@ -235,13 +223,13 @@ class ProfileView extends StatelessWidget {
                             deleteAccount(
                                 userId.toString(), bearerToken, context);
                           },
-                          child: Text('OK'),
+                          child: Text("${AppLocalizations.of(context)?.ok ?? ''}"),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(); // Close the dialog
                           },
-                          child: Text('Cancel',
+                          child: Text("${AppLocalizations.of(context)?.cancel ?? ''}",
                               style: TextStyle(color: Colors.black)),
                         ),
                       ],

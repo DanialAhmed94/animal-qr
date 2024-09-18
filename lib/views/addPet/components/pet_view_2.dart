@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_project/constants/app_constants.dart';
 
 import '../../../modal/pet_modal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum Gender { male, female }
 
@@ -30,7 +31,7 @@ class _PetView2State extends State<PetView2> {
               color: AppConstants.skyContainerColor.withOpacity(.3),
             ),
             child: Text(
-              "Gender",
+              "${AppLocalizations.of(context)?.gender ?? ''}",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -46,13 +47,41 @@ class _PetView2State extends State<PetView2> {
                       widget.petData.petGender = "Male";
                     });
                   },
-                  child: Image.asset(
-                    _gender == Gender.male
-                        ? AppConstants.maleDogSelected
-                        : AppConstants.maleDogUnselected,
+                  child: Container(
+                    height: 450,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                      //  fit: BoxFit.cover,
+                        image: AssetImage(
+                          _gender == Gender.male
+                              ? AppConstants.maleDogSelected
+                              : AppConstants.maleDogUnselected,
+                        ),
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 50.0),
+                            child: Text(
+                              "${AppLocalizations.of(context)?.male?? ''}",
+                              style: TextStyle(
+                                color: _gender == Gender.male ? Colors.white : Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "JakartaBold",
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
+              SizedBox(width: 8,),
               Expanded(
                 child: GestureDetector(
                   onTap: () {
@@ -61,15 +90,76 @@ class _PetView2State extends State<PetView2> {
                       widget.petData.petGender = "Female";
                     });
                   },
-                  child: Image.asset(
-                    _gender == Gender.female
-                        ? AppConstants.femaleCatSelected
-                        : AppConstants.femaleCatUnselected,
+                  child: Container(
+                    height: 450,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          _gender == Gender.female
+                              ? AppConstants.femaleCatSelected
+                              : AppConstants.femaleCatUnselected,
+                        ),
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 50.0),
+                            child: Text(
+                              "${AppLocalizations.of(context)?.female?? ''}",
+                              style: TextStyle(
+                                color: _gender == Gender.female ? Colors.white : Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "JakartaBold",
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ],
           ),
+
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: GestureDetector(
+          //         onTap: () {
+          //           setState(() {
+          //             _gender = Gender.male;
+          //             widget.petData.petGender = "Male";
+          //           });
+          //         },
+          //         child: Image.asset(
+          //           _gender == Gender.male
+          //               ? AppConstants.maleDogSelected
+          //               : AppConstants.maleDogUnselected,
+          //         ),
+          //       ),
+          //     ),
+          //     Expanded(
+          //       child: GestureDetector(
+          //         onTap: () {
+          //           setState(() {
+          //             _gender = Gender.female;
+          //             widget.petData.petGender = "Female";
+          //           });
+          //         },
+          //         child: Image.asset(
+          //           _gender == Gender.female
+          //               ? AppConstants.femaleCatSelected
+          //               : AppConstants.femaleCatUnselected,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

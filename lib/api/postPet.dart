@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../modal/pet_modal.dart';
 import '../views/home/home_view.dart';
@@ -62,8 +63,8 @@ Future<void> postPet(Pet petData, BuildContext context, String? bearerToken) asy
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Success',style: TextStyle(color: Colors.black)),
-            content: Text('Pet added successfully!',style: TextStyle(color: Colors.black)),
+            title: Text('${AppLocalizations.of(context)?.success}',style: TextStyle(color: Colors.black)),
+            content: Text('${AppLocalizations.of(context)?.petAddedSuccessfully}',style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
@@ -81,8 +82,8 @@ Future<void> postPet(Pet petData, BuildContext context, String? bearerToken) asy
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error',style: TextStyle(color: Colors.black)),
-            content: Text('Failed to add pet. Please try again later.',style: TextStyle(color: Colors.black)),
+            title: Text('${AppLocalizations.of(context)?.error}',style: TextStyle(color: Colors.black)),
+            content: Text('${AppLocalizations.of(context)?.failedToAddPet}',style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
@@ -100,8 +101,8 @@ Future<void> postPet(Pet petData, BuildContext context, String? bearerToken) asy
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Error',style: TextStyle(color: Colors.black),),
-          content: Text('Something went wrong! $error.',style: TextStyle(color: Colors.black)),
+          title: Text('${AppLocalizations.of(context)?.error}',style: TextStyle(color: Colors.black),),
+          content: Text('${AppLocalizations.of(context)?.somethingWentWrong}  $error.',style: TextStyle(color: Colors.black)),
           actions: <Widget>[
             TextButton(
               onPressed: () {

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../home/home.dart';
 import '../../home/home_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomWidget extends StatefulWidget {
   BottomWidget(
@@ -84,7 +85,7 @@ class _BottomWidgetState extends State<BottomWidget> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                             content: Text(
-                                'Please complete the form before proceeding.')),
+                                "${AppLocalizations.of(context)?.pleaseCompleteForm ?? ''}")),
                       );
                       break;
                     }
@@ -210,10 +211,39 @@ class _BottomWidgetState extends State<BottomWidget> {
               //   }
               // },
               child: SizedBox(
-                height: 60,
-                child: SvgPicture.asset(
-                  AppConstants.continueButton2,
-                  fit: BoxFit.contain,
+                height: 60.0, // Set a finite height
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+                  child: Stack(
+                    children: [
+                      // SVG image fills the available space
+                      SvgPicture.asset(
+                        AppConstants.continueButton2,
+                        fit: BoxFit.cover, // Adjust as needed
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                      // Text aligned to the left side
+                      Center(
+                        child: Text(
+                          "${AppLocalizations.of(context)?.continueButton ?? ' '}",
+                          style: TextStyle(
+                            color: Colors.black, // Ensure visibility over the image
+                            fontSize: 32,
+                            fontFamily: "JakartaSemiBold",
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 2.0,
+                                color: Colors.black45,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

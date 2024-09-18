@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/modal/pet_modal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PetView6 extends StatefulWidget {
   Pet petData;
@@ -46,14 +47,14 @@ class _PetView6State extends State<PetView6> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Notify Me",
+                          "${AppLocalizations.of(context)?.notifyMe ?? ''}",
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium
                               ?.copyWith(fontSize: 20),
                         ),
                         Text(
-                          "Be notified when your tag is scanned",
+                          "${AppLocalizations.of(context)?.beNotified ?? ''}",
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],

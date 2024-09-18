@@ -4,6 +4,8 @@ import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/views/auth/login.dart';
 import 'package:pet_project/views/home/home_view.dart';
 import 'package:slide_to_act/slide_to_act.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WalkthroughView extends StatefulWidget {
   const WalkthroughView({super.key});
@@ -93,7 +95,7 @@ class ImageContainer extends StatelessWidget {
                     SlideAction(
                       onSubmit: onSlide,
                       elevation: 0.0,
-                      text: "Next",
+                      text: AppLocalizations.of(context)?.next,
                       // alignment: Alignment.bottomLeft,
                       submittedIcon: null,
                       sliderButtonIcon: SvgPicture.asset(

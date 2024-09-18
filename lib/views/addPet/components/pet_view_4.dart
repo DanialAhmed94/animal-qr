@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/modal/pet_modal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PetView4 extends StatefulWidget {
   Pet petData;
@@ -73,14 +74,14 @@ class _PetView4State extends State<PetView4> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Health Summary",
+                  "${AppLocalizations.of(context)?.healthSummary ?? ''}",
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
-                  "Access further options upon profile creation",
+                  "${AppLocalizations.of(context)?.accessFurtherOptions ?? ''}",
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
@@ -111,14 +112,14 @@ class _PetView4State extends State<PetView4> {
                                 height: 18.0,
                               ),
                               Text(
-                                "Vaccination",
+                                "${AppLocalizations.of(context)?.vaccination ?? ''}",
                                 style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),
                                 // style: Theme.of(context).textTheme.titleLarge,
                               ),
                             ],
                           ),
                           Text(
-                            " Is vaccinated?",
+                            "${AppLocalizations.of(context)?.isVaccinated ?? ''}",
                             textAlign: TextAlign.center,
                             style:
                             Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -149,7 +150,7 @@ class _PetView4State extends State<PetView4> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 7.0, horizontal: 10),
                                         child: Text(
-                                          "Yes",
+                                          "${AppLocalizations.of(context)?.yes ?? ''}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
@@ -170,7 +171,7 @@ class _PetView4State extends State<PetView4> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 7.0, horizontal: 12),
                                         child: Text(
-                                          "No",
+                                          "${AppLocalizations.of(context)?.no ?? ''}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
@@ -206,7 +207,7 @@ class _PetView4State extends State<PetView4> {
                             height: 18.0,
                           ),
                           Text(
-                            "Neutered /\nSpayed",
+                            "${AppLocalizations.of(context)?.neutered ?? ''}",
                             style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),
                             // style: Theme.of(context).textTheme.titleLarge,
                           ),
@@ -233,7 +234,7 @@ class _PetView4State extends State<PetView4> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 7.0, horizontal: 10),
                                         child: Text(
-                                          "Yes",
+                                          "${AppLocalizations.of(context)?.yes ?? ''}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
@@ -254,7 +255,7 @@ class _PetView4State extends State<PetView4> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 7.0, horizontal: 12),
                                         child: Text(
-                                          "No",
+                                          "${AppLocalizations.of(context)?.no ?? ''}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
@@ -310,7 +311,7 @@ class _PetView4State extends State<PetView4> {
                       },
                       //readOnly: true,
                       decoration: InputDecoration(
-                        label: Text("Behavior"),
+                        label: Text( "${AppLocalizations.of(context)?.behaviour ?? ''}"),
                         border: InputBorder.none,
                       ),
                     ),
@@ -338,7 +339,7 @@ class _PetView4State extends State<PetView4> {
                       },
                       // readOnly: true,
                       decoration: InputDecoration(
-                        label: Text("Anxiety"),
+                        label: Text( "${AppLocalizations.of(context)?.anxiety ?? ''}"),
                         border: InputBorder.none,
                         // suffixIcon: Icon(
                         //   Icons.arrow_forward_ios_rounded,
@@ -368,7 +369,7 @@ class _PetView4State extends State<PetView4> {
                       },
                       //readOnly: true,
                       decoration: InputDecoration(
-                        label: Text("Diet"),
+                        label: Text( "${AppLocalizations.of(context)?.diet ?? ''}"),
                         border: InputBorder.none,
                       ),
                     ),

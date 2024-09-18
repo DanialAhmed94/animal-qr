@@ -6,6 +6,7 @@ import 'package:pet_project/views/auth/login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert'; // For JSON encoding/decoding
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUP extends StatefulWidget {
   SignUP({super.key});
@@ -63,7 +64,7 @@ class _SignUPState extends State<SignUP> {
 
         if (response.statusCode == 200) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Account created successfully.')),
+            SnackBar(content: Text('${AppLocalizations.of(context)?.accountCreated ?? ''}')),
           );
           // // If the server returns a 200 OK response, navigate to the login page.
           setState(() {
@@ -80,7 +81,8 @@ class _SignUPState extends State<SignUP> {
           });
           // If the server did not return a 200 OK response, display an error.
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("This email has already been taken.")),
+            SnackBar(content: Text('${AppLocalizations.of(context)?.emailTaken ?? ''}',
+            )),
           );
         }
         else {
@@ -89,7 +91,7 @@ class _SignUPState extends State<SignUP> {
           });
           // If the server did not return a 200 OK response, display an error.
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to sign up. Please try again.')),
+            SnackBar(content: Text('${AppLocalizations.of(context)?.failedSignup ?? ''}',)),
           );
         }
       }
@@ -99,7 +101,7 @@ class _SignUPState extends State<SignUP> {
       });
       print('Error during login: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error during registration.')),
+        SnackBar(content: Text('${AppLocalizations.of(context)?.errorRegistration ?? ''}')),
       );
     }
   }
@@ -148,7 +150,7 @@ class _SignUPState extends State<SignUP> {
                   Padding(
                     padding: const EdgeInsets.only(top: 0),
                     child: Text(
-                      "Create Account",
+                      '${AppLocalizations.of(context)?.createAccount ?? ''}',
                       style: TextStyle(fontSize: 26, color: Colors.black),
                     ),
                   ),
@@ -156,7 +158,7 @@ class _SignUPState extends State<SignUP> {
                     padding:
                     EdgeInsets.only(left: leftPadding, right: rightPadding),
                     child: Text(
-                      "Welcome! Please enter your information below and get started.",
+                      '${AppLocalizations.of(context)?.welcomeEnterInfo ?? ''}',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.black),
                     ),
@@ -186,7 +188,7 @@ class _SignUPState extends State<SignUP> {
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your first name';
+                                return  '${AppLocalizations.of(context)?.pleaseEnterYourFirstName ?? ''}';
                               }
                               return null;
                             },
@@ -196,7 +198,7 @@ class _SignUPState extends State<SignUP> {
                                 vertical: 10.0,
                                 horizontal: 10,
                               ),
-                              hintText: 'First name',
+                              hintText:  '${AppLocalizations.of(context)?.firstNameHint ?? ''}',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -220,7 +222,7 @@ class _SignUPState extends State<SignUP> {
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your last name';
+                                return  '${AppLocalizations.of(context)?.pleaseEnterYourLastName ?? ''}';
                               }
                               return null;
                             },
@@ -230,7 +232,7 @@ class _SignUPState extends State<SignUP> {
                                 vertical: 10.0,
                                 horizontal: 10,
                               ),
-                              hintText: 'Last name',
+                              hintText: '${AppLocalizations.of(context)?.lastNameHint ?? ''}',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -258,21 +260,21 @@ class _SignUPState extends State<SignUP> {
                                 vertical: 10.0,
                                 horizontal: 10,
                               ),
-                              hintText: 'Your email',
+                              hintText: '${AppLocalizations.of(context)?.emailHint?? ''}',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
+                                return '${AppLocalizations.of(context)?.pleaseEnterYourEmail ?? ''}';
                               }
                               // Regular expression for validating an email address
                               String pattern =
                                   r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
                               RegExp regex = RegExp(pattern);
                               if (!regex.hasMatch(value)) {
-                                return 'Please enter a valid email address';
+                                return '${AppLocalizations.of(context)?.pleaseEnterValidEmail ?? ''}';
                               }
                               return null;
                             },
@@ -292,9 +294,9 @@ class _SignUPState extends State<SignUP> {
                             keyboardType: TextInputType.text,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
+                                return '${AppLocalizations.of(context)?.pleaseEnterYourPassword ?? ''}';
                               } else if (value.length < 8) {
-                                return 'Password must be at least 8 characters long';
+                                return '${AppLocalizations.of(context)?.passwordLeast8Characters ?? ''}';
                               }
                               return null;
                             },
@@ -303,7 +305,7 @@ class _SignUPState extends State<SignUP> {
                                 vertical: 10.0,
                                 horizontal: 10,
                               ),
-                              hintText: 'Password',
+                              hintText: '${AppLocalizations.of(context)?.passwordHint ?? ''}',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -330,7 +332,7 @@ class _SignUPState extends State<SignUP> {
                               Container(
                                 child: Center(
                                   child: Text(
-                                    "Signup",
+                                    '${AppLocalizations.of(context)?.signUp ?? ''}',
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -386,14 +388,14 @@ class _SignUPState extends State<SignUP> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Already  have an account?",
+                              '${AppLocalizations.of(context)?.alreadyhaveAccount ?? ''}',
                               style: TextStyle(
                                 color: Colors.black,
                               ),
                             ),
                             GestureDetector(
                               child: Text(
-                                " Login now",
+                                '${AppLocalizations.of(context)?.loginNow ?? ''}',
                                 style: TextStyle(
                                   color: Color(0xFF339FA8),
                                 ),

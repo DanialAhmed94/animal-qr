@@ -3,6 +3,7 @@ import 'package:pet_project/constants/app_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../views/splash_view.dart';
 
@@ -34,9 +35,9 @@ Future<void> deleteAccount(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Success', style: TextStyle(color: Colors.black)),
+            title: Text('${AppLocalizations.of(context)?.success}', style: TextStyle(color: Colors.black)),
             content: Text(
-                'Your account is deleted successfully. Hope to see you soon',
+                '${AppLocalizations.of(context)?.accountDeletedSuccessfully}',
                 style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               TextButton(
@@ -63,9 +64,9 @@ Future<void> deleteAccount(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error', style: TextStyle(color: Colors.black)),
+            title: Text('${AppLocalizations.of(context)?.error}', style: TextStyle(color: Colors.black)),
             content: Text(
-                'Failed to delete your account. Please try again later.',
+                '${AppLocalizations.of(context)?.failedToDeleteAccount}',
                 style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               TextButton(

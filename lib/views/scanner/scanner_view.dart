@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/views/scanner/qr_camScanner.dart';
 import 'package:pet_project/views/scanner/scanner_detail_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScannerView extends StatelessWidget {
   const ScannerView({super.key});
@@ -32,7 +33,7 @@ class ScannerView extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "Scan Device",
+                          "${AppLocalizations.of(context)?.scanDevice ?? ''}",
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   fontSize: 20.0,
@@ -44,7 +45,7 @@ class ScannerView extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "SCAN QR",
+                      "${AppLocalizations.of(context)?.scanQR ?? ''}",
                       // scan me now
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontSize: 20.0,

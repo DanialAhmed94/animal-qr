@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_project/api/get_all_notifications.dart';
 
 import '../../../modal/notifications_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AllNotificationsView extends StatelessWidget {
   const AllNotificationsView({super.key});
@@ -50,13 +51,13 @@ class AllNotificationsView extends StatelessWidget {
               appBar: AppBar(
                 elevation: 0.0,
                 automaticallyImplyLeading: true,
-                title: Text("Notifications"),
+                title: Text('${AppLocalizations.of(context)?.notifications ?? ''}'),
                 centerTitle: true,
                 leadingWidth: 40.0,
               ),
               body: Center(
                 child: Text(
-                  "There is nothing to show!",
+                  '${AppLocalizations.of(context)?.thereIsNothingToShow ?? ''}',
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontSize: 16.0,
                       ),
@@ -69,7 +70,7 @@ class AllNotificationsView extends StatelessWidget {
                 appBar: AppBar(
                   elevation: 0.0,
                   automaticallyImplyLeading: true,
-                  title: Text("Notifications"),
+                  title: Text('${AppLocalizations.of(context)?.notifications ?? ''}'),
                   centerTitle: true,
                   leadingWidth: 40.0,
                 ),

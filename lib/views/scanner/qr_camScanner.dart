@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../addPet/add_pet.dart';
 
@@ -43,7 +44,7 @@ class _QRScannerViewState extends State<QRScannerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Scanner'),
+        title: Text('${AppLocalizations.of(context)?.qrScanner ?? ''}'),
       ),
       body: Column(
         children: [
@@ -61,9 +62,9 @@ class _QRScannerViewState extends State<QRScannerView> {
               _scanning
                   ? CircularProgressIndicator()
                   : _errorMessage != null
-                      ? Text('Error: $_errorMessage',
+                      ? Text("${AppLocalizations.of(context)?.error ?? ''}: $_errorMessage",
                           style: TextStyle(color: Colors.red))
-                      : Text('Scan a code'),
+                      : Text("${AppLocalizations.of(context)?.scanCode ?? ''}"),
             ),
           )
         ],
@@ -121,12 +122,12 @@ class _QRScannerViewState extends State<QRScannerView> {
           } else {
             setState(() {
               _errorMessage =
-                  'Failed to load data. Status code: ${response.statusCode}';
+              "${AppLocalizations.of(context)?.failedToLoadData ?? ''}${response.statusCode}";
             });
           }
         } catch (e) {
           setState(() {
-            _errorMessage = 'An error occurred: $e';
+            _errorMessage = "${AppLocalizations.of(context)?.errorOccured ?? ''}: $e";
           });
         } finally {
           setState(() {

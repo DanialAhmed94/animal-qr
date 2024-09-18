@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContactDetailView extends StatefulWidget {
   const ContactDetailView({super.key});
@@ -24,7 +26,7 @@ class _ProfileDetailViewState extends State<ContactDetailView> {
         surfaceTintColor: Colors.white,
         shadowColor: Colors.black,
         toolbarHeight: 90,
-        title: Text("Contact Us"),
+        title: Text("${AppLocalizations.of(context)?.contactUs ?? ''}"),
       ),
       body: ListView(
         children: [

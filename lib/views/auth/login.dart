@@ -10,6 +10,7 @@ import 'package:pet_project/views/auth/sugnup.dart';
 import 'package:http/http.dart' as http;
 import 'package:pet_project/views/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../home/home_view.dart';
 
@@ -94,7 +95,7 @@ class _LoginState extends State<Login> {
           print('Failed to login: ${response.statusCode}');
           print('Response body: ${response.body}');
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to Login. Please try again.')),
+            SnackBar(content: Text("${AppLocalizations.of(context)?.failedLogin ?? ''}")),
           );
         }
       } catch (error) {
@@ -103,7 +104,12 @@ class _LoginState extends State<Login> {
         });
         print('Error during login: $error');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error occured. $error')),
+            SnackBar(
+              content: Text(
+                '${AppLocalizations.of(context)?.errorOccur ?? ''} $error',
+              ),
+            )
+
         );
       }
     }
@@ -161,12 +167,12 @@ class _LoginState extends State<Login> {
                     Padding(
                       padding: const EdgeInsets.only(top: 70),
                       child: Text(
-                        "Welcome",
+                        "${AppLocalizations.of(context)?.welcome ?? ''}",
                         style: TextStyle(fontSize: 26, color: Colors.black),
                       ),
                     ),
                     Text(
-                      "Sign in to your account with your email.",
+                      "${AppLocalizations.of(context)?.signInToYourYaccount ?? ''}.",
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.black),
                     ),
@@ -190,7 +196,7 @@ class _LoginState extends State<Login> {
                               controller: _emailController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter your email';
+                                  return '${AppLocalizations.of(context)?.pleaseEnterYourEmail ?? ''}';
                                 }
                                 return null;
                               },
@@ -210,7 +216,7 @@ class _LoginState extends State<Login> {
                                   vertical: 10.0,
                                   horizontal: 10,
                                 ),
-                                hintText: 'Your email',
+                                hintText: '${AppLocalizations.of(context)?.emailHint ?? ''}',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
@@ -230,7 +236,7 @@ class _LoginState extends State<Login> {
                               controller: _passwordController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter your password';
+                                  return '${AppLocalizations.of(context)?.pleaseEnterYourPassword ?? ''}';
                                 }
                                 return null;
                               },
@@ -255,7 +261,7 @@ class _LoginState extends State<Login> {
                                   vertical: 10.0,
                                   horizontal: 10,
                                 ),
-                                hintText: 'Password',
+                                hintText:  '${AppLocalizations.of(context)?.passwordHint ?? ''}',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
@@ -294,7 +300,7 @@ class _LoginState extends State<Login> {
                                 Container(
                                   child: Center(
                                     child: Text(
-                                      "Login",
+                                      '${AppLocalizations.of(context)?.login ?? ''}',
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
@@ -354,14 +360,14 @@ class _LoginState extends State<Login> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Don't have an account?",
+                                '${AppLocalizations.of(context)?.dontHaveanAccount ?? ''}',
                                 style: TextStyle(
                                   color: Colors.black,
                                 ),
                               ),
                               GestureDetector(
                                 child: Text(
-                                  " Signup now",
+                                  '${AppLocalizations.of(context)?.signupNow ?? ''}',
                                   style: TextStyle(
                                     color: Color(0xFF339FA8),
                                   ),

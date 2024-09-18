@@ -9,8 +9,10 @@ import 'package:pet_project/views/home/widgets/all_notifications_view.dart';
 import 'package:pet_project/views/home/widgets/all_pets_view.dart';
 import 'package:pet_project/views/home/widgets/info_card.dart';
 import 'package:tuple/tuple.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../scanner/scanner_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -64,7 +66,7 @@ class Home extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hi ${_user.firstName} 🙌",
+                            "${AppLocalizations.of(context)?.hi ?? ''} ${_user.firstName} 🙌",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -194,7 +196,7 @@ class Home extends StatelessWidget {
                                       child: Row(
                                         children: [
                                           Text(
-                                            "Member",
+                                            '${AppLocalizations.of(context)?.member ?? ''}',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge
@@ -224,33 +226,13 @@ class Home extends StatelessWidget {
                               SizedBox(
                                 width: 78,
                               ),
-                              // Column(
-                              //   crossAxisAlignment: CrossAxisAlignment.start,
-                              //   children: [
-                              //     Text(
-                              //       "Phone Number",
-                              //       style: Theme.of(context)
-                              //           .textTheme
-                              //           .titleSmall
-                              //           ?.copyWith(
-                              //               color: Colors.grey[700], fontSize: 9),
-                              //     ),
-                              //     Text(
-                              //       "+91455949493",
-                              //       style: Theme.of(context)
-                              //           .textTheme
-                              //           .titleSmall
-                              //           ?.copyWith(fontSize: 9),
-                              //     ),
-                              //   ],
-                              // ),
-                              // Spacer(),
+
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    "Email",
+                                    '${AppLocalizations.of(context)?.email ?? ''}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall
@@ -283,7 +265,7 @@ class Home extends StatelessWidget {
                               width: 36,
                             ),
                             Text(
-                              "Member Since ${DateFormat('MMM, yyyy').format(_user.createdAt)}",
+                              "${AppLocalizations.of(context)?.memberSince ?? ''} ${DateFormat('MMM, yyyy').format(_user.createdAt)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall
@@ -309,7 +291,7 @@ class Home extends StatelessWidget {
                   InfoCard(
                     imagePath: AppConstants.connectedTags,
                     imageBackgroundColor: AppConstants.lightGreenColor,
-                    title: "TOTAL DEVICES",
+                    title: '${AppLocalizations.of(context)?.totalDevices ?? ''}',
                     count: "$_ownedQrs",
                     percentColor: AppConstants.deepGreenColor,
                     percentCount: "4%",
@@ -325,7 +307,7 @@ class Home extends StatelessWidget {
                    InfoCard(
                     imagePath: AppConstants.notificationBell,
                     imageBackgroundColor: AppConstants.lightBlueColor,
-                    title: "NOTIFICATIONS",
+                    title: '${AppLocalizations.of(context)?.notifications ?? ''}',
                     count: "$_notifications_count",
                     percentColor: AppConstants.deepBlueColor,
                     percentCount: "43%",
@@ -359,7 +341,7 @@ class Home extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "My Pets",
+                            '${AppLocalizations.of(context)?.myPets ?? ''}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -382,9 +364,28 @@ class Home extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => UserPetsView()));
                         },
-                        child: SvgPicture.asset(
-                          AppConstants.viewAll,
+                        child: Stack(
+                          alignment: Alignment.center, // Aligns the text at the center of the SVG
+                          children: [
+                            SvgPicture.asset(
+                              AppConstants.viewAll,
+                            ),
+                            Center(
+                              child: Text(
+                                "${AppLocalizations.of(context)?.viewAll??" "}",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: "JakartaRegular",
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,  // Change the text color to make it readable
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
+                        // child: SvgPicture.asset(
+                        //   AppConstants.viewAll,
+                        // ),
                       ),
                     ],
                   ),
@@ -407,7 +408,7 @@ class Home extends StatelessWidget {
                               const Spacer(),
                               _ownedQrs > 0
                                   ? Text(
-                                      "Add more devices",
+                                '${AppLocalizations.of(context)?.addMoreDevices ?? ''}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall
@@ -418,7 +419,7 @@ class Home extends StatelessWidget {
                                   : Column(
                                       children: [
                                         Text(
-                                          "You haven't connected any pets",
+                                          '${AppLocalizations.of(context)?.youHaventConnectedPets ?? ''}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall
@@ -427,7 +428,7 @@ class Home extends StatelessWidget {
                                               ),
                                         ),
                                         Text(
-                                          "Add your first pet.",
+                                          '${AppLocalizations.of(context)?.addFirstPet ?? ''}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall
@@ -447,8 +448,24 @@ class Home extends StatelessWidget {
                                 //     builder: (context) => const AddPetView(),
                                 //   ),
                                 // ),
-                                child: SvgPicture.asset(
-                                  AppConstants.addPet,
+                                child: Stack(
+                                  alignment: Alignment.center, // Aligns the text at the center of the SVG
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppConstants.addPet,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        "${AppLocalizations.of(context)?.getStarted??" "}",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: "JakartaRegular",
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,  // Change the text color to make it readable
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               const SizedBox(

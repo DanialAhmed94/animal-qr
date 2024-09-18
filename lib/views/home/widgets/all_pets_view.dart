@@ -7,7 +7,8 @@ import 'package:pet_project/modal/all_pets_model.dart';
 import '../../../api/get_all_pets.dart';
 import '../../../constants/app_constants.dart';
 import '../../scanner/scaner_detail_view_userPet.dart';
-import '../../scanner/scanner_detail_view.dart';
+import '../../scanner/scanner_detail_view.dart';import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class UserPetsView extends StatelessWidget {
   const UserPetsView({super.key});
@@ -71,13 +72,13 @@ class UserPetsView extends StatelessWidget {
               appBar: AppBar(
                 elevation: 0.0,
                 automaticallyImplyLeading: true,
-                title: Text("Registered Pets"),
+                title: Text('${AppLocalizations.of(context)?.registeredPets ?? ''}'),
                 centerTitle: true,
                 leadingWidth: 40.0,
               ),
               body: Center(
                 child: Text(
-                  "You haven't registered any pet yet!",
+                  '${AppLocalizations.of(context)?.youHaventRegisteredPets ?? ''}',
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontSize: 16.0,
                       ),
@@ -90,7 +91,7 @@ class UserPetsView extends StatelessWidget {
               appBar: AppBar(
                 elevation: 0.0,
                 automaticallyImplyLeading: true,
-                title: Text("Registered Pets"),
+                title: Text('${AppLocalizations.of(context)?.registeredPets ?? ''}'),
                 centerTitle: true,
                 leadingWidth: 40.0,
               ),

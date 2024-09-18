@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileDetailView extends StatefulWidget {
   const ProfileDetailView({super.key});
@@ -46,7 +47,7 @@ class _ProfileDetailViewState extends State<ProfileDetailView> {
         surfaceTintColor: Colors.white,
         shadowColor: Colors.black,
         toolbarHeight: 90,
-        title: Text("Profile"),
+        title: Text("${AppLocalizations.of(context)?.profile ?? ''}"),
       ),
       body: ListView(
         children: [
@@ -60,7 +61,7 @@ class _ProfileDetailViewState extends State<ProfileDetailView> {
           ListTile(
               title: Row(
                 children: [
-                  Text("Name: ",style: TextStyle(fontSize: 13),),
+                  Text("${AppLocalizations.of(context)?.name ?? ''}",style: TextStyle(fontSize: 13),),
                     Text(
                       "$_firstName $_lastName",
                       style: Theme.of(context).textTheme.titleMedium,
@@ -100,7 +101,7 @@ class _ProfileDetailViewState extends State<ProfileDetailView> {
           ListTile(
             title: Row(
               children: [
-                Text("Email: ",style: TextStyle(fontSize: 13),),
+                Text("${AppLocalizations.of(context)?.email ?? ''}: ",style: TextStyle(fontSize: 13),),
                   Text(
                     "$_email",
                     style: Theme.of(context).textTheme.titleMedium,
@@ -114,7 +115,7 @@ class _ProfileDetailViewState extends State<ProfileDetailView> {
           ListTile(
             title: Row(
               children: [
-                Text("Member Since: ",style: TextStyle(fontSize: 13),),
+                Text("${AppLocalizations.of(context)?.memberSince ?? ''}: ",style: TextStyle(fontSize: 13),),
                 Text(
                   "${DateFormat('MMM, yyyy').format(_createdAt)}",
                   style: Theme.of(context).textTheme.titleMedium,
@@ -137,7 +138,7 @@ class _ProfileDetailViewState extends State<ProfileDetailView> {
           ListTile(
             title: Row(
               children: [
-                Text("Active devices: ",style: TextStyle(fontSize: 13),),
+                Text("${AppLocalizations.of(context)?.activeDevices ?? ''}: ",style: TextStyle(fontSize: 13),),
                 Text(
                   "$_ownedQrs",
                   style: Theme.of(context).textTheme.titleMedium,

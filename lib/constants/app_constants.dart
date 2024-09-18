@@ -37,8 +37,8 @@ class AppConstants {
   static const String statusContainer = "assets/svg/status_rectangle.svg";
   static const String tealContainer = "assets/svg/teal_container.svg";
   static const String blueContainer = "assets/svg/blue_container.svg";
-  static const String continueButton1 = "assets/svg/continue_button_1.svg";
-  static const String continueButton2 = "assets/svg/continue_2.svg";
+  static const String continueButton1 = "assets/svg/continue_button_1new.svg";
+  static const String continueButton2 = "assets/svg/continue_2new.svg";
   static const String forwardIcon = "assets/svg/forward_icon.svg";
   static const String idIcon = "assets/svg/id.svg";
   static const String calenderIcon = "assets/svg/calender.svg";
@@ -66,6 +66,7 @@ class AppConstants {
   static const String privacyPolicy = "assets/svg/privacy_policy.svg";
   static const String contactUS = "assets/svg/contact_us.svg";
   static const String logout = "assets/svg/check-out.png";
+  static const String setting = "assets/svg/settings.png";
   static const String delete = "assets/svg/garbage.png";
   static const String feedBack = "assets/svg/feedback.svg";
   static const String aboutUs = "assets/svg/about_us.svg";
@@ -87,19 +88,19 @@ class AppConstants {
   static const String homeInfo = "assets/home/home_info.png";
 
   static const String petCard = "assets/addPet/pet_card.png";
-  static const String dogPetUnselected = "assets/addPet/dog_unselected.png";
-  static const String dogPetSelected = "assets/addPet/dog_selected.png";
-  static const String catPetSelected = "assets/addPet/cat_selected.png";
-  static const String catPetUnselected = "assets/addPet/cat_unselected.png";
+  static const String dogPetUnselected = "assets/addPet/dog_unselected1.png";
+  static const String dogPetSelected = "assets/addPet/dog_selected1.png";
+  static const String catPetSelected = "assets/addPet/cat_selected1.png";
+  static const String catPetUnselected = "assets/addPet/cat_unselected1.png";
   static const String back = "assets/addPet/back.png";
   static const String addImage = "assets/addPet/add_image.png";
-  static const String maleDogSelected = "assets/addPet/male_dog_selected.png";
+  static const String maleDogSelected = "assets/addPet/male_dog_selectednew.png";
   static const String maleDogUnselected =
-      "assets/addPet/male_dog_unselected.png";
+      "assets/addPet/male_dog_unselectednew.png";
   static const String femaleCatUnselected =
-      "assets/addPet/female_cat_unselected.png";
+      "assets/addPet/female_cat_unselectednew.png";
   static const String femaleCatSelected =
-      "assets/addPet/female_cat_selected.png";
+      "assets/addPet/female_cat_selectednew.png";
 
 ////////SAMPLES/////////////////////////////////////////////////
   static const String sample1 = "assets/example/refer.png";

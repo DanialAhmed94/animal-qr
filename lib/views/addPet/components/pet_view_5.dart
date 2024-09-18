@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_project/constants/app_constants.dart';
 import 'package:pet_project/modal/pet_modal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum Weight { lbs, kg }
 
@@ -41,14 +42,14 @@ class _PetView5State extends State<PetView5> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Current Weight",
+                  "${AppLocalizations.of(context)?.currentWeight ?? ''}",
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
-                  "Please provide your pet's weight",
+                  "${AppLocalizations.of(context)?.pleaseProvidePetWeight ?? ''}",
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
