@@ -49,16 +49,18 @@ class _SplashViewState extends State<SplashView> {
       );
     } else if (!isLoggedIn && isLanguageSelected) {
       // If user is not logged in but language is selected, go to WalkthroughView
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) =>  Login(),
+          builder: (context) => LanguageSelectionScreen(destination: WalkthroughView()),
         ),
+            (Route<dynamic> route) => false, // This removes all previous routes
       );
+
     } else {
       // If user is not logged in and language is not selected, go to LanguageSelectionView
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) =>  LanguageSelectionScreen(), // Replace with your language selection screen
+          builder: (context) =>  LanguageSelectionScreen(destination: WalkthroughView(),), // Replace with your language selection screen
         ),
       );
     }

@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'controler/languageSelectionController.dart';
 
 class LanguageSelectionScreen extends StatelessWidget {
+  final Widget destination;
+  LanguageSelectionScreen({required this.destination});
   final List<Map<String, String>> languages = [
     {'name': 'English', 'code': 'en', 'image': "assets/language/ukFlag.png"},
     {'name': 'French', 'code': 'fr', 'image': "assets/language/frenchFlag.png"},
@@ -21,7 +23,7 @@ class LanguageSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Select Language")),
+      appBar: AppBar(title: Text("Select Language"),automaticallyImplyLeading: false,centerTitle: true,),
       body: ListView.builder(
         itemCount: languages.length,
         itemBuilder: (context, index) {
@@ -40,7 +42,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Login(),
+                      builder: (context) => destination,
                     ));
               },
             ),

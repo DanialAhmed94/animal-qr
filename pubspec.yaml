@@ -122,6 +122,8 @@ flutter:
     - family: JakartaSemiBold
       fonts:
         - asset: fonts/Jakarta-SemiBold.ttf
-
+    - family: PlusJakartaSansExtrabold
+      fonts:
+        - asset: fonts/PlusJakartaSans-ExtraBold.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

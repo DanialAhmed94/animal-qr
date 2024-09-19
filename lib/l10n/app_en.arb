@@ -185,5 +185,11 @@
 "failedToAddPet":"Failed to add pet. Please try again later.",
 "somethingWentWrong":"Something went wrong!",
 "accountDeletedSuccessfully":"Your account is deleted successfully. Hope to see you soon",
-"failedToDeleteAccount":"Failed to delete your account. Please try again later."
+"failedToDeleteAccount":"Failed to delete your account. Please try again later.",
+"scanMeNow":"SCAN ME NOW I JUST WANT TO GO HOME",
+"findThePerfect":"Find the perfect",
+"pet":"Pet ",
+"forYou":" for you!",
+"welcomeTo":"Welcome to ",
+"joinIn":"Join in on thousands of users around the world"
 }

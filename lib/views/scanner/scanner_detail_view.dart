@@ -84,14 +84,16 @@ class ScannerDetailView extends StatelessWidget {
                           const SizedBox(
                             width: 12,
                           ),
-                          Text(
-                            "${_checkForNull(rPet.address)}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    color: const Color(0xFF707070),
-                                    fontSize: 13),
+                          Flexible(
+                            child: Text(
+                              "${_checkForNull(rPet.address)}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                      color: const Color(0xFF707070),
+                                      fontSize: 13),
+                            ),
                           ),
                         ],
                       ),
