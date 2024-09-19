@@ -1,0 +1,17 @@
+{
+  "es": [
+    "email"
+  ],
+
+  "fr": [
+    "email"
+  ],
+
+  "nl": [
+    "email"
+  ],
+
+  "tr": [
+    "email"
+  ]
+}

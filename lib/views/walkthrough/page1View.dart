@@ -28,18 +28,16 @@ class WalkthroughFirstPage extends StatelessWidget {
              // color: Colors.red,
           height: 100,
           width: MediaQuery.of(context).size.width*0.9,
-          child: Flexible(
-            child: Text(
-                 "${AppLocalizations.of(context)?.scanMeNow}",
-              softWrap: true,
+          child: Text(
+               "${AppLocalizations.of(context)?.scanMeNow}",
 
-              style: TextStyle(
-              color: Colors.black,
-              fontFamily: "PlusJakartaSansExtrabold",
-              fontSize: 32
-            ),
-              textAlign: TextAlign.center,
-            ),
+
+            style: TextStyle(
+            color: Colors.black,
+            fontFamily: "PlusJakartaSansExtrabold",
+            fontSize: 32
+          ),
+            textAlign: TextAlign.center,
           ),
         )),
           Positioned(
